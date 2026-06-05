@@ -1,0 +1,1538 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>西交常用网站汇总</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f3ee;
+      --panel: #fffdf9;
+      --text: #221f1f;
+      --muted: #6f6a64;
+      --line: #e7ded3;
+      --brand: #b91c1c;
+      --brand-dark: #8f1212;
+      --gold: #b7791f;
+      --blue: #2563a8;
+      --green: #16815f;
+      --ink: #2d2a26;
+      --shadow: 0 18px 48px rgba(50, 35, 24, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(185, 28, 28, 0.09), transparent 38%),
+        linear-gradient(315deg, rgba(37, 99, 168, 0.08), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    body.mobile-scroll-lock {
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .notice,
+    .toolbar,
+    .category-nav,
+    .site-card,
+    .empty-state,
+    .note-box {
+      background: rgba(255, 253, 249, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: linear-gradient(var(--brand), var(--gold), var(--blue));
+    }
+
+    .kicker {
+      margin: 0 0 6px;
+      color: var(--brand-dark);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      text-indent: 2em;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      min-width: 0;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff8ef;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .notice {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      background: #2d2a26;
+      color: #fffaf2;
+    }
+
+    .notice h2 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .notice p {
+      margin: 8px 0 0;
+      color: #e8ddcf;
+      font-size: 14px;
+      text-indent: 2em;
+    }
+
+    .notice-legend {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .notice-legend li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      padding-top: 8px;
+      color: #f6eadb;
+      font-size: 13px;
+    }
+
+    .notice-legend strong {
+      color: #ffd58a;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .notice-legend span {
+      color: #e8ddcf;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 14px;
+      margin: 12px auto 18px;
+      backdrop-filter: blur(16px);
+    }
+
+    html[data-device="mobile"] .toolbar {
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      height: 48px;
+      padding: 0 48px 0 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: rgba(185, 28, 28, 0.6);
+      box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .clear-btn,
+    .filter-btn,
+    .action-btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 0.18s, border-color 0.18s, background 0.18s;
+    }
+
+    .clear-btn {
+      padding: 0 14px;
+      white-space: nowrap;
+    }
+
+    .clear-btn:hover,
+    .filter-btn:hover,
+    .action-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(185, 28, 28, 0.45);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .filter-btn {
+      padding: 7px 12px;
+      color: var(--muted);
+    }
+
+    .filter-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      padding-bottom: 34px;
+      min-width: 0;
+    }
+
+    .category-nav {
+      position: sticky;
+      top: 104px;
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .category-nav h2 {
+      margin: 4px 6px 10px;
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+
+    .category-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .category-link:hover,
+    .category-link.active {
+      background: #f7e8dc;
+      color: var(--brand-dark);
+    }
+
+    .count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 22px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: #efe4d7;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      scroll-margin-top: 128px;
+      margin-bottom: 26px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 12px;
+      padding: 0 2px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .site-card {
+      min-width: 0;
+      max-width: 100%;
+      padding: 16px;
+      box-shadow: none;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+
+    .site-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(185, 28, 28, 0.36);
+      box-shadow: 0 12px 30px rgba(50, 35, 24, 0.09);
+    }
+
+    .card-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .card-top > .badge {
+      justify-self: start;
+    }
+
+    .site-card h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .url {
+      display: block;
+      max-width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      background: #eff6ff;
+      color: var(--blue);
+      font-family: "Consolas", "Cascadia Mono", "Microsoft YaHei", monospace;
+      font-size: 16px;
+      line-height: 1.45;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      transition: border-color 0.18s, background 0.18s, color 0.18s;
+    }
+
+    .url:hover {
+      border-color: #93c5fd;
+      background: #dbeafe;
+      color: #1d4e89;
+    }
+
+    .url-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      line-height: 1.3;
+      background: #efe8de;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .badge.important {
+      background: #fff0c2;
+      color: #8a4f00;
+    }
+
+    .badge.auth {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .badge.campus {
+      background: #dbeafe;
+      color: #1d4e89;
+    }
+
+    .badge.external {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.library {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .badge.retired {
+      background: #e5e7eb;
+      color: #4b5563;
+    }
+
+    .desc {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      text-indent: 2em;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 11px;
+      font-size: 13px;
+      min-width: 0;
+    }
+
+    .action-btn.primary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .action-btn[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .empty-state,
+    .note-box {
+      padding: 20px;
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .note-box {
+      margin-top: 10px;
+      border-left: 5px solid var(--gold);
+    }
+
+    .note-box h2 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .note-box p {
+      margin: 0;
+      text-indent: 2em;
+    }
+
+    .note-box p + p {
+      margin-top: 8px;
+    }
+
+    .site-footer {
+      width: 100%;
+      margin: 0;
+      padding: 18px 16px;
+      background: var(--ink);
+      color: #f6eadb;
+      font-size: 14px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 30;
+      transform: translate(-50%, 16px);
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    mark {
+      padding: 0 2px;
+      border-radius: 3px;
+      background: #fde68a;
+      color: inherit;
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .category-nav {
+        position: static;
+      }
+
+      .category-nav .nav-list {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .category-link {
+        flex: 0 0 auto;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: var(--bg);
+      }
+
+      .shell {
+        width: calc(100vw - 16px);
+        max-width: calc(100vw - 16px);
+        min-width: 0;
+      }
+
+      .hero {
+        padding-top: 10px;
+      }
+
+      .hero-main {
+        padding: 20px 16px;
+      }
+
+      .notice {
+        padding: 16px;
+      }
+
+      .notice-legend li {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .toolbar {
+        position: static;
+        padding: 12px;
+        margin: 10px auto 14px;
+        overflow: hidden;
+      }
+
+      .hero-grid,
+      .layout,
+      .cards,
+      .site-card,
+      .card-top,
+      .url-list,
+      .actions,
+      .note-box,
+      .category-nav {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .search-row {
+        grid-template-columns: 1fr;
+      }
+
+      .clear-btn {
+        width: 100%;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .section-head p {
+        text-align: left;
+      }
+
+      .card-top {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        gap: 10px;
+      }
+
+      .site-card {
+        padding: 14px;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .action-btn {
+        min-width: 0;
+        padding: 0 8px;
+        width: 100%;
+        white-space: nowrap;
+      }
+
+      .filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .filters::-webkit-scrollbar,
+      .category-nav .nav-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-btn {
+        flex: 0 0 auto;
+      }
+
+      .category-nav .nav-list {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      .stat {
+        padding: 11px 12px;
+      }
+
+      .site-footer {
+        padding-bottom: calc(18px + env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (max-width: 390px) {
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .url {
+        font-size: 15px;
+      }
+    }
+
+    html[data-device="mobile"] h1 {
+      font-size: 32px;
+    }
+
+    html[data-device="mobile"],
+    html[data-device="mobile"] body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    html[data-device="mobile"] .shell {
+      width: calc(100vw - 16px);
+      max-width: calc(100vw - 16px);
+      min-width: 0;
+    }
+
+    html[data-device="mobile"] .hero-grid,
+    html[data-device="mobile"] .layout,
+    html[data-device="mobile"] .cards,
+    html[data-device="mobile"] .site-card,
+    html[data-device="mobile"] .toolbar,
+    html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .note-box {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    html[data-device="mobile"] .layout,
+    html[data-device="mobile"] .hero-grid,
+    html[data-device="mobile"] .cards {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-device="mobile"] .category-nav {
+      position: static;
+    }
+
+    html[data-device="mobile"] .category-nav .nav-list,
+    html[data-device="mobile"] .filters {
+      display: flex;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    html[data-device="mobile"] .category-nav .nav-list::-webkit-scrollbar,
+    html[data-device="mobile"] .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    html[data-device="mobile"] .category-link,
+    html[data-device="mobile"] .filter-btn {
+      flex: 0 0 auto;
+    }
+
+    html[data-device="mobile"] .actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+      max-width: 100%;
+    }
+
+    html[data-device="mobile"] .action-btn {
+      width: 100%;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    html[data-device="mobile"] .hero {
+      padding: 8px 0 8px;
+    }
+
+    html[data-device="mobile"] .hero-main {
+      padding: 18px 14px 14px;
+    }
+
+    html[data-device="mobile"] .kicker {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    html[data-device="mobile"] .lead {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    html[data-device="mobile"] .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    html[data-device="mobile"] .stat {
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    html[data-device="mobile"] .stat strong {
+      font-size: 18px;
+    }
+
+    html[data-device="mobile"] .stat span {
+      font-size: 11px;
+    }
+
+    html[data-device="mobile"] .notice {
+      padding: 13px;
+      gap: 10px;
+    }
+
+    html[data-device="mobile"] .notice h2 {
+      font-size: 17px;
+    }
+
+    html[data-device="mobile"] .notice p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    html[data-device="mobile"] .notice-legend {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    html[data-device="mobile"] .notice-legend li {
+      border-top: 0;
+      padding: 7px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    html[data-device="mobile"] .notice-legend strong,
+    html[data-device="mobile"] .notice-legend span {
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    html[data-device="mobile"] .toolbar {
+      padding: 10px;
+      margin: 8px auto 10px;
+    }
+
+    html[data-device="mobile"] .search-wrap input {
+      height: 42px;
+      padding-left: 12px;
+    }
+
+    html[data-device="mobile"] .clear-btn {
+      min-height: 34px;
+    }
+
+    html[data-device="mobile"] .filters {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    html[data-device="mobile"] .filter-btn {
+      width: 100%;
+      min-height: 32px;
+      padding: 5px 4px;
+      font-size: 12px;
+      white-space: normal;
+      line-height: 1.25;
+    }
+
+    html[data-device="mobile"] .layout {
+      gap: 10px;
+      padding-bottom: 18px;
+    }
+
+    html[data-device="mobile"] .category-nav {
+      padding: 10px;
+      box-shadow: none;
+    }
+
+    html[data-device="mobile"] .category-nav h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+    }
+
+    html[data-device="mobile"] .category-nav .nav-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    html[data-device="mobile"] .category-link {
+      width: 100%;
+      min-height: 34px;
+      padding: 7px 8px;
+      font-size: 12px;
+      line-height: 1.25;
+      background: #fffaf5;
+      border: 1px solid var(--line);
+    }
+
+    html[data-device="mobile"] .count {
+      min-width: 22px;
+      height: 20px;
+      padding: 0 5px;
+      font-size: 11px;
+    }
+
+    html[data-device="mobile"] .section {
+      scroll-margin-top: 12px;
+      margin-bottom: 14px;
+    }
+
+    html[data-device="mobile"] .section-head {
+      gap: 2px;
+      margin-bottom: 7px;
+    }
+
+    html[data-device="mobile"] .section-head h2 {
+      font-size: 20px;
+    }
+
+    html[data-device="mobile"] .section-head p {
+      font-size: 12px;
+    }
+
+    html[data-device="mobile"] .cards {
+      gap: 8px;
+    }
+
+    html[data-device="mobile"] .site-card {
+      padding: 11px;
+    }
+
+    html[data-device="mobile"] .site-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    html[data-device="mobile"] .card-top {
+      gap: 6px;
+    }
+
+    html[data-device="mobile"] .site-card h3 {
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    html[data-device="mobile"] .url-list {
+      gap: 4px;
+      margin-top: 5px;
+    }
+
+    html[data-device="mobile"] .url {
+      padding: 5px 7px;
+      border-left-width: 3px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    html[data-device="mobile"] .badges {
+      gap: 4px;
+      margin-top: 7px;
+    }
+
+    html[data-device="mobile"] .badge {
+      min-height: 20px;
+      padding: 1px 6px;
+      font-size: 11px;
+    }
+
+    html[data-device="mobile"] .card-top > .badge {
+      display: none;
+    }
+
+    html[data-device="mobile"] .desc {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    html[data-device="mobile"] .actions {
+      gap: 6px;
+      margin-top: 9px;
+    }
+
+    html[data-device="mobile"] .action-btn {
+      min-height: 32px;
+      padding: 0 6px;
+      font-size: 12px;
+    }
+
+    html[data-device="mobile"] .note-box {
+      padding: 14px;
+    }
+
+    html[data-device="mobile"] .note-box h2 {
+      font-size: 18px;
+    }
+
+    html[data-device="mobile"] .note-box p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    html[data-device="mobile"] .site-footer {
+      margin-top: 4px;
+      padding-top: 14px;
+      padding-bottom: calc(14px + env(safe-area-inset-bottom));
+      font-size: 13px;
+    }
+
+    @media (max-width: 390px) {
+      html[data-device="mobile"] .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      html[data-device="mobile"] .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      html[data-device="mobile"] .notice-legend {
+        grid-template-columns: 1fr;
+      }
+
+      html[data-device="mobile"] .actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    html[data-device="mobile"] .lead,
+    html[data-device="mobile"] .notice p,
+    html[data-device="mobile"] .desc,
+    html[data-device="mobile"] .note-box p {
+      text-indent: 2em;
+    }
+
+    html[data-device="tablet"] .cards {
+      grid-template-columns: 1fr;
+    }
+  </style>
+  <script>
+    (function detectDeviceType() {
+      const root = document.documentElement;
+
+      function applyDeviceType() {
+        const width = window.innerWidth;
+        const pointerIsCoarse = window.matchMedia("(pointer: coarse)").matches;
+        const ua = navigator.userAgent || "";
+        const isMobileUA = /Android|iPhone|iPod|Mobile/i.test(ua);
+        const isTabletUA = /iPad|Tablet/i.test(ua) || (pointerIsCoarse && width >= 700 && width <= 1180);
+        const device = (isMobileUA || (pointerIsCoarse && width < 700)) ? "mobile" : (isTabletUA ? "tablet" : "desktop");
+
+        root.dataset.device = device;
+        if (document.body) {
+          document.body.classList.toggle("mobile-scroll-lock", device === "mobile");
+        }
+      }
+
+      applyDeviceType();
+      document.addEventListener("DOMContentLoaded", applyDeviceType);
+      window.addEventListener("resize", applyDeviceType, { passive: true });
+      window.addEventListener("orientationchange", applyDeviceType, { passive: true });
+    })();
+  </script>
+</head>
+<body>
+  <header class="hero shell">
+    <div class="hero-grid">
+      <section class="hero-main">
+        <p class="kicker">XJTU QUICK LINKS</p>
+        <h1>西交常用网站汇总</h1>
+        <p class="lead">把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。</p>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <aside class="notice">
+        <div>
+          <h2>访问前先看这里</h2>
+          <p>未写完整域名的校内站点默认补全为 <strong>.xjtu.edu.cn</strong>。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。</p>
+        </div>
+        <ul class="notice-legend">
+          <li><strong>重点网站</strong><span>与学习、办事、资源获取等校园流程关系密切</span></li>
+          <li><strong>图书馆</strong><span>图书馆相关预约办理与数据库等入口</span></li>
+          <li><strong>校园网/VPN</strong><span>需连接校园网、教育网或通过VPN访问</span></li>
+          <li><strong>校外站点</strong><span>校外学习、考试、文献检索平台与工具网站</span></li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <section class="toolbar shell" aria-label="搜索与筛选">
+    <div class="search-row">
+      <label class="search-wrap">
+        <input id="searchInput" type="search" placeholder="搜索：选课、成绩、图书馆、VPN、统一认证、四六级、教师主页..." autocomplete="off">
+        <span class="search-icon">⌕</span>
+      </label>
+      <button class="clear-btn" id="clearBtn" type="button">清空</button>
+    </div>
+    <div class="filters" id="filters"></div>
+  </section>
+
+  <main class="shell layout">
+    <nav class="category-nav" aria-label="分类导航">
+      <h2>分类导航</h2>
+      <div class="nav-list" id="categoryNav"></div>
+    </nav>
+
+    <div>
+      <div id="content"></div>
+      <section class="note-box">
+        <h2>说明与备注</h2>
+        <p>本说明文档为学生自制，必然会有谬误之处。</p>
+        <p>原 txt 中标有星号的站点，在本页面统一标识为“重点网站”，代表它们通常与学校日常学习、办事、资源获取等流程关系更密切。</p>
+        <p>2026 年上半年网络攻防演练期间，这些重点网站曾更容易受到访问策略、二次验证和内部跳转限制影响。</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">维护者：润铎</footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const categories = [
+      { id: "front", name: "放在前面", hint: "账号、邮箱、网络、VPN 等先决入口" },
+      { id: "course", name: "课程规划相关", hint: "选课、考勤、新生选拔" },
+      { id: "study", name: "日常学习相关", hint: "课程平台、教务查询、图书馆预约" },
+      { id: "service", name: "基础服务办理", hint: "一网通办、财务、网络、宿舍" },
+      { id: "portal", name: "部门信息公开与门户", hint: "学校和部门信息发布入口" },
+      { id: "resource", name: "基础资源获取或查询", hint: "教材、数据库、地图、软件、教师主页" },
+      { id: "external", name: "校外其余常用", hint: "考试、学习平台、文献和工具站点" },
+      { id: "retired", name: "校内已停用网站", hint: "保留旧站信息，避免误用" }
+    ];
+
+    const sites = [
+      { c: "front", n: "交大总门户", u: "https://www.xjtu.edu.cn", d: "西安交通大学官方网站总入口。" },
+      { c: "front", n: "统一身份认证注册", short: "login", d: "凭学号注册统一身份认证；也可在登录移交或交大任一办事网站时注册。下方标有“需统一认证”的站点均需要统一身份认证账号密码登录。", auth: true },
+      { c: "front", n: "移动交通大学下载", d: "移动交通大学入口，下称“移交”。m.xjtu.edu.cn 为校内短域名入口，H5 页面为可直接访问的下载页。", links: [
+        { label: "m.xjtu.edu.cn", url: "https://m.xjtu.edu.cn" },
+        { label: "https://ywtb.xjtu.edu.cn/dataService/H5/pc/index.html", url: "https://ywtb.xjtu.edu.cn/dataService/H5/pc/index.html" }
+      ] },
+      { c: "front", n: "学生邮箱申请", short: "ywtb", d: "在移交或 ywtb 网站内搜索“学生邮箱注册”。", important: true },
+      { c: "front", n: "学生邮箱使用", short: "stu", d: "学生邮箱网页版入口；移动端可下载 Coremail 论客。", popular: true },
+      { c: "front", n: "校园用网申请", short: "nethelp", d: "缴纳入网费，用于使用 XJTU_STU 与 xjtulib 等校园公用网络；后续备注“校园网”的站点需连接校园公用网络、宿舍教育网或通过 VPN 访问。", auth: true },
+      { c: "front", n: "网页 VPN", short: "webvpn", d: "不连接校园网时访问需要校园网权限的网站。", auth: true, popular: true },
+      { c: "front", n: "SSLVPN", u: "https://nic.xjtu.edu.cn/wlfw/wlfw/SSL_VPNfw.htm", d: "SSLVPN 配置教学引导；作用类似 webvpn，更适合电脑端。", popular: true },
+
+      { c: "course", n: "本科选课", short: "xkfw", d: "本科选课系统，日常不开放访问权限，需关注教务通知。", auth: true, popular: true },
+      { c: "course", n: "本科考勤", short: "bkkq", d: "本科考勤相关入口。", campus: true, auth: true, important: true, popular: true },
+      { c: "course", n: "新生选拔系统", short: "xsxb", d: "入学选拔政策发布与报名。" },
+
+      { c: "study", n: "思源学堂新版", short: "lms", d: "日常交作业、找课件与直录播课。", campus: true, auth: true, important: true, popular: true },
+      { c: "study", n: "教务办事大厅新版", short: "jwxt", d: "考试查询、成绩查询、教师查询、课表查询、课程查询、成绩单申领、学生评教、缓补考申请。", campus: true, auth: true, important: true, popular: true },
+      { c: "study", n: "图书馆座位预约", short: "rq.lib", d: "图书馆座位预约，最好使用移交或手机端网页。", campus: true, auth: true, important: true, library: true },
+      { c: "study", n: "图书馆空间预约", short: "space.lib", d: "图书馆独立隔间预约，可用于研讨或面试，需至少提前一天。", campus: true, auth: true, important: true, library: true },
+      { c: "study", n: "本科生毕业设计管理平台（新版）", u: "https://pec.xjtu.edu.cn/sjjx/bysj/bysjyq.htm", d: "用于接收毕设工作消息，下载相关规定与模板。" },
+      { c: "study", n: "大创管理平台", u: "https://pts.xjtu.edu.cn/cxcy", d: "大学生创新创业训练计划管理系统。", campus: true, auth: true, important: true },
+      { c: "study", n: "图书馆门户", short: "lib", d: "图书馆相关功能网站的跳转入口。", campus: true, library: true },
+      { c: "study", n: "思源学堂门户", short: "syxt", d: "导航到学校学习资源平台或学校在各学习平台的 SPOC 站点。" },
+
+      { c: "service", n: "一网通办", short: "ywtb", d: "功能与移交内几乎一样。", auth: true, important: true, popular: true },
+      { c: "service", n: "财务处", short: "jdcw", d: "学费缴纳、个人财务查询与校级报销。", auth: true },
+      { c: "service", n: "学生成长支持系统", short: "ss", d: "假期去向登记与心理普测。", auth: true, important: true, popular: true },
+      { c: "service", n: "网络信息中心", short: "nic", d: "所有与校园用网相关的服务。" },
+      { c: "service", n: "选宿", short: "housing2021", d: "选宿时会有通知，日常不开放访问权限；钱院等分配制宿舍可在选宿期间通过此站点查看分配结果。", auth: true },
+
+      { c: "portal", n: "校各部门信息公开", u: "https://xxgk.xjtu.edu.cn/zxxxgk.htm", d: "学校政务、财务信息公开。" },
+      { c: "portal", n: "综合信息服务", short: "info", d: "老网站，日常使用较少。" },
+      { c: "portal", n: "钱院门户", short: "bjb", d: "钱学森学院门户，有关开学选拔的信息也会在此发布。" },
+      { c: "portal", n: "校团委门户", short: "tuanwei", d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。", auth: true },
+      { c: "portal", n: "实践教学中心", short: "pec", d: "校内实践、竞赛成绩等信息发布。" },
+      { c: "portal", n: "教务处", short: "jwc", d: "选课通知、教学通知、重大考试通知。", popular: true },
+
+      { c: "resource", n: "课程教材", short: "jiaocai.lib", d: "各类教材电子书开放。", campus: true, auth: true, important: true, library: true },
+      { c: "resource", n: "图书馆资源数据库导航", short: "stat.lib", d: "交大已购权限的文献与技术数据库查询和跳转入口；部分数据库如 CAS-SciFinder 等可能有另外的注册指引，需从图书馆官方信息中检索查找。", campus: true, auth: true, important: true, library: true, popular: true },
+      { c: "resource", n: "馆提存典藏预约", short: "innopac.lib", d: "提存书库、典藏书库图书预约，建议从移交或手机端操作。", campus: true, auth: true, important: true, library: true },
+      { c: "resource", n: "少学组", u: "https://shaoxuezu.com", d: "学生自行开发，用于少年班项目相关资料分享。", external: true },
+      { c: "resource", n: "校历", short: "workflow", d: "网页端校历；若要可打印成品，可找教务处微信公众号置顶文章。" },
+      { c: "resource", n: "学校地图（旧版）", u: "https://pharm.xjtu.edu.cn/info/1200/4032.htm", d: "非官方整理地图入口。" },
+      { c: "resource", n: "学校地图（新旧综合）", u: "https://vi.xjtu.edu.cn/qt/jddt.htm", d: "视觉识别系统内的地图集锦，130 校庆期间完善。" },
+      { c: "resource", n: "正版软件平台", short: "ms", d: "包含 Adobe、Office、MATLAB、MWorks、MathType、福昕等。", auth: true, important: true, popular: true },
+      { c: "resource", n: "视觉形象识别系统", short: "vi", d: "校徽、校名、各类标识高清图片与 PPT 模板。", popular: true },
+      { c: "resource", n: "教师个人主页旧版", short: "gr", d: "旧版教师主页，流畅度较差。" },
+      { c: "resource", n: "教师个人主页新版", short: "faculty", d: "试运行新版；页面较完备，教师主页内信息由教师自行填写，可用于查找教师研究课题与联系方式。", important: true, popular: true },
+
+      { c: "external", n: "雨课堂网页端", u: "https://www.yuketang.cn/web", d: "更多时候会使用微信小程序的雨课堂或长江雨课堂。", external: true },
+      { c: "external", n: "长江雨课堂 SPOC", u: "https://cjxjtu.yuketang.cn", d: "长江雨课堂西交 SPOC 入口。", external: true },
+      { c: "external", n: "中国大学 MOOC-XJTU", u: "https://www.icourse163.org/spoc/university/XJTU", d: "更多时候会使用手机版“中国大学 MOOC”。", external: true },
+      { c: "external", n: "四六级", u: "https://cet-bm.neea.edu.cn", d: "全国大学英语四、六级考试报名入口。", external: true },
+      { c: "external", n: "中国教育考试网", u: "https://www.neea.edu.cn", d: "教育考试相关查询和公告入口。", external: true },
+      { c: "external", n: "智慧团建", u: "https://zhtj.youth.cn/zhtj", d: "团支部常用平台。", external: true },
+      { c: "external", n: "学信网", u: "https://www.chsi.com.cn", d: "学籍学历电子身份凭证等。", external: true },
+      { c: "external", n: "清华开源软件镜像站", u: "https://mirrors.tuna.tsinghua.edu.cn", d: "安装环境、下载宏包等场景常用的镜像站。", external: true },
+      { c: "external", n: "知网", u: "https://www.cnki.net", d: "中文文献检索常用平台；在校园网环境下可通过学校 IP 获取文献数据下载权限。", external: true },
+      { c: "external", n: "玻尔学术平台", u: "https://www.bohrium.com", d: "外文理工类文献检索可用。", external: true },
+      { c: "external", n: "JSTOR 文献检索平台", u: "https://www.jstor.org", d: "外文社科类文献检索可用。", external: true },
+
+      { c: "retired", n: "教务办事大厅旧版", short: "ehall", d: "已停用，会自动跳转至 jwxt。", retired: true },
+      { c: "retired", n: "思源学堂旧版", short: "bb", d: "已停用但仍可访问，不再同步信息。", retired: true },
+      { c: "retired", n: "直录播课", d: "已不再同步信息，相关服务可在 lms 上找到。", links: [
+        { label: "class.xjtu.edu.cn", url: "https://class.xjtu.edu.cn" },
+        { label: "rms-v5.xjtu.edu.cn", url: "https://rms-v5.xjtu.edu.cn" }
+      ], retired: true },
+      { c: "retired", n: "本科生毕业设计管理平台（旧版）", u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh", d: "已停用，且无法访问。", retired: true },
+      { c: "retired", n: "师生综合服务大厅", short: "one2020", d: "已停用，且无法访问。", retired: true }
+    ];
+
+    const filters = [
+      { id: "all", label: "全部" },
+      { id: "popular", label: "高频入口" },
+      { id: "campus", label: "校园网/VPN" },
+      { id: "library", label: "图书馆" },
+      { id: "auth", label: "需统一认证" },
+      { id: "important", label: "重点网站" },
+      { id: "external", label: "校外站点" },
+      { id: "retired", label: "已停用" }
+    ];
+
+    const state = {
+      query: "",
+      filter: "all"
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+    const content = $("#content");
+    const searchInput = $("#searchInput");
+
+    function siteLinks(site) {
+      if (site.links) return site.links;
+      if (site.u) return [{ label: site.u, url: site.u }];
+      if (site.short) {
+        const url = `https://${site.short}.xjtu.edu.cn`;
+        return [{ label: `${site.short}.xjtu.edu.cn`, url }];
+      }
+      return [];
+    }
+
+    function getDisplayUrl(site) {
+      return siteLinks(site).map((link) => link.label).join(" 或 ");
+    }
+
+    function linkList(site) {
+      return siteLinks(site).map((link) => `
+        <a class="url" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${markText(link.label)}</a>
+      `).join("");
+    }
+
+    function normalize(text) {
+      return String(text || "").toLowerCase().replace(/\s+/g, "");
+    }
+
+    function matches(site) {
+      const haystack = normalize([
+        site.n,
+        site.short,
+        site.u,
+        site.d,
+        siteLinks(site).map((link) => `${link.label} ${link.url}`).join(" "),
+        site.auth ? "需统一认证 统一身份认证 登录" : "",
+        site.important ? "重点网站 学校日常运营重点网站 高频流程" : "",
+        site.campus ? "校园网 VPN" : "",
+        site.library ? "图书馆 lib library" : "",
+        site.external ? "校外站点" : "",
+        site.retired ? "已停用 旧站" : "",
+        categories.find((item) => item.id === site.c)?.name
+      ].join(" "));
+
+      const byQuery = !state.query || haystack.includes(normalize(state.query));
+      const byFilter = state.filter === "all" || Boolean(site[state.filter]);
+      return byQuery && byFilter;
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    function markText(text) {
+      const safe = escapeHtml(text);
+      const query = state.query.trim();
+      if (!query) return safe;
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return safe.replace(new RegExp(escapedQuery, "gi"), (match) => `<mark>${match}</mark>`);
+    }
+
+    function badges(site) {
+      const items = [];
+      if (site.popular) items.push(`<span class="badge">高频</span>`);
+      if (site.campus) items.push(`<span class="badge campus">校园网/VPN</span>`);
+      if (site.important) items.push(`<span class="badge important">重点网站</span>`);
+      if (site.auth) items.push(`<span class="badge auth">需统一认证</span>`);
+      if (site.library) items.push(`<span class="badge library">图书馆</span>`);
+      if (site.external) items.push(`<span class="badge external">校外</span>`);
+      if (site.retired) items.push(`<span class="badge retired">已停用</span>`);
+      return items.join("");
+    }
+
+    function card(site) {
+      const links = siteLinks(site);
+      const displayUrl = getDisplayUrl(site);
+      const disabled = site.retired ? "disabled" : "";
+      const category = categories.find((item) => item.id === site.c);
+      const hasMultipleLinks = links.length > 1;
+      const openButtons = links.map((link, index) => `
+        <a class="action-btn ${index === 0 && !site.retired ? "primary" : ""}" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" ${site.retired ? "aria-disabled=\"true\"" : ""}>${hasMultipleLinks ? `点击跳转${index + 1}` : "点击跳转"}</a>
+      `).join("");
+
+      return `
+        <article class="site-card" data-category="${site.c}">
+          <div class="card-top">
+            <div>
+              <h3>${markText(site.n)}</h3>
+              <div class="url-list">
+                ${linkList(site)}
+              </div>
+            </div>
+            <span class="badge">${escapeHtml(category.name)}</span>
+          </div>
+          <div class="badges">${badges(site)}</div>
+          <p class="desc">${markText(site.d)}</p>
+          <div class="actions">
+            ${openButtons}
+            <button class="action-btn" type="button" data-copy="${escapeHtml(displayUrl)}">复制网址</button>
+            ${site.retired ? `<button class="action-btn" type="button" disabled ${disabled}>旧站提示</button>` : ""}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderStats() {
+      const total = sites.length;
+      const popular = sites.filter((site) => site.popular).length;
+      const auth = sites.filter((site) => site.auth).length;
+      const library = sites.filter((site) => site.library).length;
+      $("#stats").innerHTML = [
+        ["站点总数", total],
+        ["日常高频", popular],
+        ["需统一认证", auth],
+        ["图书馆", library]
+      ].map(([label, value]) => `
+        <div class="stat">
+          <strong>${value}</strong>
+          <span>${label}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderFilters() {
+      $("#filters").innerHTML = filters.map((filter) => `
+        <button class="filter-btn ${state.filter === filter.id ? "active" : ""}" type="button" data-filter="${filter.id}">${filter.label}</button>
+      `).join("");
+    }
+
+    function renderNav(visibleSites) {
+      $("#categoryNav").innerHTML = categories.map((category) => {
+        const count = visibleSites.filter((site) => site.c === category.id).length;
+        return `
+          <a class="category-link" href="#${category.id}" data-nav="${category.id}">
+            <span>${category.name}</span>
+            <span class="count">${count}</span>
+          </a>
+        `;
+      }).join("");
+    }
+
+    function renderContent() {
+      const visible = sites.filter(matches);
+      renderNav(visible);
+      renderFilters();
+
+      if (!visible.length) {
+        content.innerHTML = `
+          <section class="empty-state">
+            没有找到匹配的网站。可以换一个关键词，或切回“全部”筛选。
+          </section>
+        `;
+        return;
+      }
+
+      content.innerHTML = categories.map((category) => {
+        const group = visible.filter((site) => site.c === category.id);
+        if (!group.length) return "";
+        return `
+          <section class="section" id="${category.id}">
+            <div class="section-head">
+              <div>
+                <h2>${category.name}</h2>
+              </div>
+              <p>${category.hint}，共 ${group.length} 个</p>
+            </div>
+            <div class="cards">
+              ${group.map(card).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("网址已复制");
+      } catch {
+        const input = document.createElement("input");
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+        showToast("网址已复制");
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const filterButton = event.target.closest("[data-filter]");
+      if (filterButton) {
+        state.filter = filterButton.dataset.filter;
+        renderContent();
+        return;
+      }
+
+      const copyButton = event.target.closest("[data-copy]");
+      if (copyButton) {
+        copyText(copyButton.dataset.copy);
+      }
+    });
+
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      renderContent();
+    });
+
+    $("#clearBtn").addEventListener("click", () => {
+      state.query = "";
+      state.filter = "all";
+      searchInput.value = "";
+      renderContent();
+      searchInput.focus();
+    });
+
+    renderStats();
+    renderContent();
+  </script>
+</body>
+</html>
