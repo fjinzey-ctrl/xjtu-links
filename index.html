@@ -78,6 +78,7 @@
     .notice,
     .toolbar,
     .category-nav,
+    .developing-panel,
     .site-card,
     .empty-state,
     .note-box {
@@ -306,14 +307,21 @@
       min-width: 0;
     }
 
-    .category-nav {
+    .side-rail {
       position: sticky;
       top: 104px;
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .category-nav {
       padding: 12px;
       box-shadow: none;
     }
 
-    .category-nav h2 {
+    .category-nav h2,
+    .developing-panel h2 {
       margin: 4px 6px 10px;
       font-size: 15px;
       color: var(--muted);
@@ -337,6 +345,64 @@
     .category-link.active {
       background: #f7e8dc;
       color: var(--brand-dark);
+    }
+
+    .developing-panel {
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .developing-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .developing-link {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff8ef;
+      color: var(--ink);
+    }
+
+    .developing-link:hover {
+      border-color: rgba(185, 28, 28, 0.35);
+      background: #fff1e4;
+      color: var(--brand-dark);
+    }
+
+    .developing-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .developing-top strong {
+      min-width: 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .developing-top em {
+      flex: 0 0 auto;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #efe4d7;
+      color: var(--muted);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    .developing-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
     }
 
     .count {
@@ -584,6 +650,26 @@
       font-size: 14px;
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.14);
+      white-space: pre-line;
+    }
+
+    .site-footer a {
+      color: #ffd58a;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 14px;
+      margin-top: 6px;
+      white-space: normal;
     }
 
     .toast {
@@ -621,7 +707,7 @@
         grid-template-columns: 1fr;
       }
 
-      .category-nav {
+      .side-rail {
         position: static;
       }
 
@@ -697,7 +783,9 @@
       .url-list,
       .actions,
       .note-box,
-      .category-nav {
+      .category-nav,
+      .developing-panel,
+      .side-rail {
         width: 100%;
         max-width: 100%;
         min-width: 0;
@@ -809,6 +897,8 @@
     html[data-device="mobile"] .site-card,
     html[data-device="mobile"] .toolbar,
     html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .developing-panel,
+    html[data-device="mobile"] .side-rail,
     html[data-device="mobile"] .note-box {
       width: 100%;
       max-width: 100%;
@@ -962,12 +1052,19 @@
       padding-bottom: 18px;
     }
 
-    html[data-device="mobile"] .category-nav {
+    html[data-device="mobile"] .side-rail {
+      position: static;
+      gap: 10px;
+    }
+
+    html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .developing-panel {
       padding: 10px;
       box-shadow: none;
     }
 
-    html[data-device="mobile"] .category-nav h2 {
+    html[data-device="mobile"] .category-nav h2,
+    html[data-device="mobile"] .developing-panel h2 {
       margin: 0 0 8px;
       font-size: 13px;
     }
@@ -1210,10 +1307,17 @@
   </section>
 
   <main class="shell layout">
-    <nav class="category-nav" aria-label="分类导航">
-      <h2>分类导航</h2>
-      <div class="nav-list" id="categoryNav"></div>
-    </nav>
+    <aside class="side-rail">
+      <nav class="category-nav" aria-label="分类导航">
+        <h2>分类导航</h2>
+        <div class="nav-list" id="categoryNav"></div>
+      </nav>
+
+      <section class="developing-panel" id="developingPanel" aria-label="开发中页面">
+        <h2>开发中</h2>
+        <div class="developing-list" id="developingPages"></div>
+      </section>
+    </aside>
 
     <div>
       <div id="content"></div>
@@ -1258,7 +1362,25 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          footerText: "开发维护：润铎",
+          footerText: "开发维护：润铎/fjinze@stu.xjtu.edu.cn",
+          footerLinks: [
+                {
+                      label: "GitHub主页",
+                      url: "https://github.com/fjinzey-ctrl/"
+                },
+                {
+                      label: "GitHub Pages",
+                      url: "https://fjinzey-ctrl.github.io/xjtu-links/"
+                },
+                {
+                      label: "CloudFlare Pages",
+                      url: "https://xjtu-links.pages.dev/"
+                },
+                {
+                      label: "问题反馈",
+                      url: "mailto:fjinze@stu.xjtu.edu.cn"
+                }
+          ],
           stats: [
                 {
                       type: "total",
@@ -1358,12 +1480,12 @@
           {
                 id: "portal",
                 name: "部门信息公开与门户",
-                hint: "学校和部门信息发布入口"
+                hint: "学校及其二级部门信息发布入口"
           },
           {
                 id: "resource",
                 name: "基础资源获取或查询",
-                hint: "教材、数据库、地图、软件、教师主页"
+                hint: "教材、数据库、地图、软件、教师主页、档案查询"
           },
           {
                 id: "external",
@@ -1377,12 +1499,21 @@
           }
     ];
 
+    const developingPages = [
+          {
+                title: "XJTU College",
+                status: "完善中",
+                description: "书院、学院与公众号信息速查页，现阶段持续补齐内容与交互。",
+                url: "./college/index.html"
+          }
+    ];
+
     const sites = [
           {
                 c: "front",
                 n: "交大总门户",
-                u: "https://www.xjtu.edu.cn",
-                d: "西安交通大学官方网站总入口。"
+                d: "西安交通大学官方网站总入口。",
+                u: "https://www.xjtu.edu.cn"
           },
           {
                 c: "front",
@@ -1454,10 +1585,11 @@
                 important: true
           },
           {
-                c: "course",
+                c: "front",
                 n: "新生选拔系统",
+                d: "未登录时可查询入学选拔政策，统一认证登陆后进入报名界面，同时也是少年班预二试验班选拔操作平台",
                 short: "xsxb",
-                d: "入学选拔政策发布与报名。"
+                auth: true
           },
           {
                 c: "study",
@@ -1782,8 +1914,8 @@
           {
                 c: "retired",
                 n: "思源学堂旧版",
-                short: "bb",
                 d: "已停用但仍可访问，不再同步信息。",
+                short: "bb",
                 retired: true
           },
           {
@@ -1815,6 +1947,13 @@
                 d: "已停用，且无法访问。",
                 short: "one2020",
                 retired: true
+          },
+          {
+                c: "resource",
+                n: "校档案馆",
+                d: "档案馆门户网站，可查询交大历年大事记、查档流程与申请查档入口等",
+                short: "archives",
+                campus: true
           }
     ];
 
@@ -1900,7 +2039,6 @@
     function card(site) {
       const links = siteLinks(site);
       const displayUrl = getDisplayUrl(site);
-      const disabled = site.retired ? "disabled" : "";
       const category = categories.find((item) => item.id === site.c);
       const hasMultipleLinks = links.length > 1;
       const openButtons = links.map((link, index) => `
@@ -1926,7 +2064,6 @@
           <div class="actions">
             ${openButtons}
             ${copyButtons}
-            ${site.retired ? `<button class="action-btn" type="button" disabled ${disabled}>旧站提示</button>` : ""}
           </div>
         </article>
       `;
@@ -1955,8 +2092,28 @@
       `).join("");
       $("#noteTitle").textContent = pageConfig.noteTitle || "";
       $("#noteParagraphs").innerHTML = (pageConfig.noteParagraphs || []).map((text) => `<p>${escapeHtml(text)}</p>`).join("");
-      $("#siteFooter").textContent = pageConfig.footerText || "";
+      const footerText = escapeHtml(pageConfig.footerText || "").replace(/\n/g, "<br>");
+      const footerLinks = (pageConfig.footerLinks || []).filter((link) => link && link.url).map((link) => `
+        <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label || link.url)}</a>
+      `).join("");
+      $("#siteFooter").innerHTML = `${footerText}${footerLinks ? `<div class="footer-links">${footerLinks}</div>` : ""}`;
       document.title = pageConfig.title || document.title;
+    }
+
+    function renderDevelopingPages() {
+      const panel = $("#developingPanel");
+      const list = $("#developingPages");
+      const pages = (developingPages || []).filter((page) => page && page.title && page.url);
+      panel.hidden = !pages.length;
+      list.innerHTML = pages.map((page) => `
+        <a class="developing-link" href="${escapeHtml(page.url)}">
+          <span class="developing-top">
+            <strong>${escapeHtml(page.title)}</strong>
+            <em>${escapeHtml(page.status || "开发中")}</em>
+          </span>
+          ${page.description ? `<span class="developing-desc">${escapeHtml(page.description)}</span>` : ""}
+        </a>
+      `).join("");
     }
 
     function renderFilters() {
@@ -2061,6 +2218,7 @@
     });
 
     renderPageConfig();
+    renderDevelopingPages();
     renderStats();
     renderContent();
   </script>
