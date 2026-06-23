@@ -76,6 +76,7 @@
 
     .hero-main,
     .notice,
+    .admission-strip,
     .toolbar,
     .category-nav,
     .developing-panel,
@@ -203,6 +204,91 @@
 
     .notice-legend span {
       color: #e8ddcf;
+    }
+
+    .admission-strip {
+      display: grid;
+      grid-template-columns: minmax(170px, 0.42fr) minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 18px;
+      margin: 4px auto 12px;
+      border-left: 6px solid var(--brand);
+    }
+
+    .admission-strip[hidden] {
+      display: none;
+    }
+
+    .admission-copy {
+      min-width: 0;
+    }
+
+    .admission-kicker {
+      margin: 0 0 2px;
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .admission-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .admission-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .admission-items li {
+      min-width: 0;
+      padding: 7px 10px;
+      border: 1px solid rgba(185, 28, 28, 0.16);
+      border-radius: var(--radius);
+      background: #fff8ef;
+      color: #4b4037;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .admission-qr {
+      display: grid;
+      grid-template-columns: 74px minmax(92px, auto);
+      gap: 9px;
+      align-items: center;
+      margin: 0;
+      padding-left: 12px;
+      border-left: 1px solid var(--line);
+    }
+
+    .admission-qr img {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .admission-qr figcaption {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .admission-qr strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.35;
     }
 
     .toolbar {
@@ -707,6 +793,28 @@
         grid-template-columns: 1fr;
       }
 
+      .admission-strip {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .admission-items {
+        grid-template-columns: 1fr;
+      }
+
+      .admission-qr {
+        grid-template-columns: 64px minmax(0, 1fr);
+        padding-left: 0;
+        padding-top: 10px;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .admission-qr img {
+        width: 64px;
+        height: 64px;
+      }
+
       .side-rail {
         position: static;
       }
@@ -895,6 +1003,7 @@
     html[data-device="mobile"] .layout,
     html[data-device="mobile"] .cards,
     html[data-device="mobile"] .site-card,
+    html[data-device="mobile"] .admission-strip,
     html[data-device="mobile"] .toolbar,
     html[data-device="mobile"] .category-nav,
     html[data-device="mobile"] .developing-panel,
@@ -907,7 +1016,8 @@
 
     html[data-device="mobile"] .layout,
     html[data-device="mobile"] .hero-grid,
-    html[data-device="mobile"] .cards {
+    html[data-device="mobile"] .cards,
+    html[data-device="mobile"] .admission-strip {
       grid-template-columns: 1fr;
     }
 
@@ -1295,6 +1405,21 @@
     </div>
   </header>
 
+  <section class="admission-strip shell" id="admissionStrip" aria-label="新生入学提醒">
+    <div class="admission-copy">
+      <p class="admission-kicker" id="admissionKicker">新生入学提醒</p>
+      <h2 class="admission-title" id="admissionTitle">入学前先完成这几件事</h2>
+    </div>
+    <ul class="admission-items" id="admissionItems"></ul>
+    <figure class="admission-qr" id="admissionQrWrap">
+      <img id="admissionQr" src="assets/wecom-qr.png" alt="西安交通大学企业微信二维码">
+      <figcaption>
+        <strong id="admissionQrTitle">西安交通大学企业微信</strong>
+        <span id="admissionQrHint">扫码加入企业微信</span>
+      </figcaption>
+    </figure>
+  </section>
+
   <section class="toolbar shell" aria-label="搜索与筛选">
     <div class="search-row">
       <label class="search-wrap">
@@ -1357,6 +1482,20 @@
                       text: "校外学习、考试、文献检索平台与工具网站"
                 }
           ],
+          admissionStrip: {
+                enabled: true,
+                kicker: "新生入学提醒",
+                title: "入学前先完成这几件事",
+                items: [
+                      "根据录取通知书上的学号注册统一认证账号",
+                      "下载移动交通大学",
+                      "注册学生邮箱 @stu.xjtu.edu.cn",
+                      "加入西安交通大学企业微信"
+                ],
+                qrSrc: "assets/wecom-qr.png",
+                qrTitle: "西安交通大学企业微信",
+                qrHint: "扫码加入企业微信"
+          },
           noteTitle: "说明与备注",
           noteParagraphs: [
                 "本说明文档为学生自制，必然会有谬误之处。",
@@ -2090,6 +2229,16 @@
       $("#noticeLegend").innerHTML = (pageConfig.legendItems || []).map((item) => `
         <li><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text)}</span></li>
       `).join("");
+      const admission = pageConfig.admissionStrip || {};
+      $("#admissionStrip").hidden = admission.enabled === false;
+      $("#admissionKicker").textContent = admission.kicker || "";
+      $("#admissionTitle").textContent = admission.title || "";
+      $("#admissionItems").innerHTML = (admission.items || []).filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      $("#admissionQrWrap").hidden = !admission.qrSrc;
+      $("#admissionQr").src = admission.qrSrc || "";
+      $("#admissionQr").alt = admission.qrTitle ? `${admission.qrTitle}二维码` : "二维码";
+      $("#admissionQrTitle").textContent = admission.qrTitle || "";
+      $("#admissionQrHint").textContent = admission.qrHint || "";
       $("#noteTitle").textContent = pageConfig.noteTitle || "";
       $("#noteParagraphs").innerHTML = (pageConfig.noteParagraphs || []).map((text) => `<p>${escapeHtml(text)}</p>`).join("");
       const footerText = escapeHtml(pageConfig.footerText || "").replace(/\n/g, "<br>");
