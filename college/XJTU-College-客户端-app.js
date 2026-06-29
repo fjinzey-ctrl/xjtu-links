@@ -4,6 +4,7 @@ const academySource = dataSource.academySource || "https://www.xjtu.edu.cn/bksy.
 const schoolSource = dataSource.schoolSource || "https://www.xjtu.edu.cn/yxsz.htm";
 const majorSource = dataSource.majorSource || "https://dean.xjtu.edu.cn/info/1271/9087.htm";
 const defaultContent = JSON.parse(JSON.stringify({
+  version: dataSource.version || "",
   pageContent: dataSource.pageContent || {},
   academies: dataSource.academies || [],
   schools: dataSource.schools || [],
@@ -18,6 +19,7 @@ function readContentOverride() {
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed.academies) || !Array.isArray(parsed.schools)) return null;
+    if (defaultContent.version && parsed.version !== defaultContent.version) return null;
     return parsed;
   } catch {
     return null;
@@ -99,6 +101,13 @@ function searchableText(item) {
     item.useful,
     ...(item.scope || []),
     ...(item.majors || []),
+    ...(item.subColleges || []).flatMap((college) => [college.name, ...(college.majors || [])]),
+    ...(item.programDetails || []).flatMap((program) => [
+      program.name,
+      program.collegeName,
+      program.overview,
+      ...((program.sections || []).flatMap((section) => [section.title, section.text])),
+    ]),
     ...(item.graduatePoints || []),
     ...((item.detailSections || []).flatMap((section) => [section.title, section.text, ...(section.items || [])])),
     ...(item.keywords || []),
@@ -219,6 +228,111 @@ function highlight(text) {
   return safe.replace(new RegExp(escaped, "gi"), (match) => `<mark>${match}</mark>`);
 }
 
+function renderSubColleges(item) {
+  if (!item.subColleges?.length) return "";
+  return `
+    <section class="detail-block compact-block">
+      <h4>下设学院 / 专业归属</h4>
+      <div class="subcollege-list">
+        ${item.subColleges.map((college) => `
+          <article class="subcollege-card">
+            <header>
+              <strong>${highlight(college.name)}</strong>
+              <span>${college.majors?.length || 0} 个专业</span>
+            </header>
+            <div class="major-list">
+              ${(college.majors || []).map((major) => `<span class="major-pill">${highlight(major)}</span>`).join("")}
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderProgramDetails(item) {
+  if (!item.programDetails?.length) return "";
+  const programs = item.programDetails;
+  return `
+    <section class="detail-block program-section">
+      <div class="detail-title-row">
+        <h4>专业详情</h4>
+        <span>${programs.length} 个专业，点击切换</span>
+      </div>
+      <div class="program-browser" data-program-browser>
+        <div class="program-tabs" role="tablist" aria-label="专业详情">
+          ${programs.map((program, index) => `
+            <button class="${index === 0 ? "active" : ""}" type="button" data-program-tab="${index}">
+              ${highlight(program.name)}
+            </button>
+          `).join("")}
+        </div>
+        <div class="program-panels">
+          ${programs.map((program, index) => `
+            <article class="program-panel" data-program-panel="${index}" ${index === 0 ? "" : "hidden"}>
+              <div class="program-panel-head">
+                <strong>${highlight(program.name)}</strong>
+                ${program.collegeName && program.collegeName !== item.officialNameZh ? `<span>${highlight(program.collegeName)}</span>` : ""}
+              </div>
+              ${program.overview ? `<p>${highlight(program.overview)}</p>` : ""}
+              ${(program.sections || []).slice(0, 4).map((section) => `
+                <div class="program-section-row">
+                  <strong>${escapeHtml(section.title)}</strong>
+                  <p>${highlight(section.text)}</p>
+                </div>
+              `).join("")}
+              ${program.source ? `<a class="mini-source" href="${program.source}" target="_blank" rel="noreferrer">专业来源</a>` : ""}
+            </article>
+          `).join("")}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderMajorOverview(item) {
+  if (!item.majors?.length) return "";
+  return `
+    <section class="detail-block compact-block">
+      <div class="detail-title-row">
+        <h4>本科专业 / 方向</h4>
+        <span>${item.majors.length} 项</span>
+      </div>
+      <div class="major-list compact-major-list">
+        ${item.majors.map((major) => `<span class="major-pill">${highlight(major)}</span>`).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function bindInspectorInteractions(target) {
+  target.querySelectorAll("[data-program-browser]").forEach((browser) => {
+    const tabs = [...browser.querySelectorAll("[data-program-tab]")];
+    const panels = [...browser.querySelectorAll("[data-program-panel]")];
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const index = tab.dataset.programTab;
+        tabs.forEach((entry) => entry.classList.toggle("active", entry === tab));
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.programPanel !== index;
+        });
+        requestAnimationFrame(syncSchoolWorldHeight);
+      });
+    });
+  });
+}
+
+function isDuplicateSection(section, item) {
+  const title = section.title || "";
+  const text = String(section.text || "").trim();
+  if (title.includes("学院速览") || title.includes("本科专业") || title.includes("本科入口")) return true;
+  if (text && item.summary && text.replace(/\s+/g, "") === item.summary.replace(/\s+/g, "")) return true;
+  if (section.items?.length && item.majors?.length) {
+    return section.items.join("|") === item.majors.join("|");
+  }
+  return false;
+}
+
 function renderInspector(target, item, type) {
   if (!item) {
     target.innerHTML = `
@@ -241,22 +355,29 @@ function renderInspector(target, item, type) {
     { title: "实用关注", text: item.focus || "" },
     { title: "硕博/学科信息", items: item.graduatePoints || [] },
   ];
+  const visibleSections = isAcademy ? sections : sections.filter((section) => !isDuplicateSection(section, item));
   const usefulText = (text) => String(text || "")
     .replace(item.summary || "", "")
     .replace(/本科入口主要包括：[^。]*。/g, "")
     .trim();
+  const renderedSections = visibleSections.filter((section) => {
+    const text = section.title === "实用关注" ? usefulText(section.text) : section.text;
+    return Boolean((text && String(text).trim()) || section.items?.length);
+  });
   target.innerHTML = `
     <div class="inspect-logo"><img src="${item.logo}" alt="${escapeHtml(displayName)}徽标"></div>
     <h3>${escapeHtml(displayName)}</h3>
     ${officialEnglish ? `<div class="official-en">${escapeHtml(officialEnglish)}</div>` : ""}
-    <div class="meta-line">${isAcademy ? "书院管辖 / 归属范围" : "本科专业 / 方向"}</div>
+    <div class="meta-line">${isAcademy ? "书院管辖 / 归属范围" : "学院概览"}</div>
     <p>${escapeHtml(item.summary)}</p>
     ${isAcademy ? `<p><strong>关注建议：</strong>${escapeHtml(item.useful)}</p><p><strong>位置：</strong>${escapeHtml(item.location)}</p>` : ""}
     ${isAcademy ? `
       <div class="tag-list">
         ${list.map((entry) => `<span class="tag">${highlight(entry)}</span>`).join("")}
       </div>
-    ` : sections.map((section) => `
+    ` : `
+      ${renderMajorOverview(item)}
+      ${renderedSections.map((section) => `
       <section class="detail-block">
         <h4>${escapeHtml(section.title)}</h4>
         ${section.text ? `<p>${highlight(section.title === "实用关注" ? usefulText(section.text) : section.text)}</p>` : ""}
@@ -266,12 +387,22 @@ function renderInspector(target, item, type) {
           </div>
         ` : ""}
       </section>
-    `).join("")}
+      `).join("")}
+    `}
+    ${!isAcademy ? renderSubColleges(item) : ""}
+    ${!isAcademy ? renderProgramDetails(item) : ""}
     <a class="source-link" href="${item.source}" target="_blank" rel="noreferrer">
       <span>官网来源</span>
       <code>${escapeHtml(item.source)}</code>
     </a>
+    ${!isAcademy && item.admissionSource ? `
+      <a class="source-link" href="${item.admissionSource}" target="_blank" rel="noreferrer">
+        <span>招生网来源</span>
+        <code>${escapeHtml(item.admissionSource)}</code>
+      </a>
+    ` : ""}
   `;
+  bindInspectorInteractions(target);
 }
 
 function renderDirectory() {
@@ -285,11 +416,12 @@ function renderDirectory() {
   directoryList.innerHTML = items.map((item) => {
     const isAcademy = item.type === "academy";
     const list = isAcademy ? item.scope : item.majors;
+    const extraCount = !isAcademy && item.programDetails?.length ? `<span class="directory-count">${item.programDetails.length} 个专业详情</span>` : "";
     return `
       <article class="directory-card" data-id="${item.id}">
         <img src="${item.logo}" alt="${escapeHtml(item.name)}徽标" loading="lazy">
         <div>
-          <h3>${highlight(item.name)}</h3>
+          <h3>${highlight(item.name)}${extraCount}</h3>
           <p>${highlight(item.summary)}</p>
           <div class="${isAcademy ? "tag-list" : "major-list"}">
             ${list.map((entry) => `<span class="${isAcademy ? "tag" : "major-pill"}">${highlight(entry)}</span>`).join("")}
@@ -327,6 +459,33 @@ const physicsWorlds = {
   },
 };
 
+function syncSchoolWorldHeight() {
+  const world = physicsWorlds.schools;
+  if (!world?.el || !world.inspector) return;
+  if (window.innerWidth <= 980) {
+    world.el.style.removeProperty("--school-world-height");
+    return;
+  }
+
+  const panel = world.el.closest(".physics-panel");
+  const topline = panel?.querySelector(".physics-topline");
+  const panelPadding = 34;
+  const toplineHeight = topline ? Math.ceil(topline.getBoundingClientRect().height) : 0;
+  const inspectorHeight = Math.ceil(world.inspector.scrollHeight || world.inspector.getBoundingClientRect().height || 0);
+  const targetHeight = Math.max(840, Math.min(1760, inspectorHeight - toplineHeight - panelPadding));
+  const previousHeight = world.rect.height || world.el.clientHeight || 840;
+
+  world.el.style.setProperty("--school-world-height", `${targetHeight}px`);
+  world.rect.height = targetHeight;
+  world.nodes.forEach((node) => {
+    node.y = Math.min(node.y, targetHeight - node.r - 4);
+    if (targetHeight > previousHeight + 40) {
+      node.vy += 0.28 + Math.random() * 0.28;
+      node.vx += (Math.random() - 0.5) * 0.12;
+    }
+  });
+}
+
 function createBubble(world, item, index) {
   const el = document.createElement("div");
   el.className = `bubble ${world.type === "school" ? "school-bubble" : "academy-bubble"}`;
@@ -356,6 +515,7 @@ function initPhysicsWorld(worldKey) {
   world.selectedId = null;
   state.selectedByWorld[worldKey] = null;
   renderInspector(world.inspector, null, world.type);
+  if (world.type === "school") syncSchoolWorldHeight();
 
   const items = visiblePhysicsItems(world);
   const rect = world.el.getBoundingClientRect();
@@ -423,6 +583,9 @@ function selectBubble(world, id, impulse) {
   });
 
   renderInspector(world.inspector, world.selectedId ? node.item : null, world.type);
+  if (world.type === "school") {
+    requestAnimationFrame(syncSchoolWorldHeight);
+  }
 
   if (impulse && world.selectedId) {
     world.nodes.forEach((entry) => {
@@ -605,5 +768,11 @@ updateFloatingSearch();
 
 renderAll();
 initAllPhysics();
+if ("ResizeObserver" in window) {
+  const schoolInspectorObserver = new ResizeObserver(() => {
+    requestAnimationFrame(syncSchoolWorldHeight);
+  });
+  schoolInspectorObserver.observe(schoolInspector);
+}
 
 window.__xjtuCollegeData = { pageContent, academies, schools, allItems, defaults: defaultContent };
