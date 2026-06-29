@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>西交书院与学院信息速查</title>
+  <link rel="stylesheet" href="./XJTU-College-客户端-styles.css">
+</head>
+<body>
+  <header class="app-head">
+    <nav class="topbar" aria-label="页面导航">
+      <a class="brand" href="#top">
+        <span class="brand-mark">XJTU</span>
+        <span id="navTitle">书院 / 学院 / 公众号</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#accounts">关注清单</a>
+        <a href="#map">关系图谱</a>
+        <a href="#directory">文字速查</a>
+      </div>
+    </nav>
+
+    <section id="top" class="hero shell">
+      <div class="hero-main">
+        <p class="kicker" id="heroKicker">XJTU UNDERGRADUATE INDEX</p>
+        <h1 id="heroTitle">西交本科书院与学院信息速查</h1>
+        <p class="lead" id="heroLead">
+          面向本科新生整理：哪些公众号值得关注、各书院大致管哪些学院或专业、
+          各学院对应哪些本科专业方向。资料取自学校官网，并压缩为日常使用视角。
+        </p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <aside class="source-box">
+        <h2 id="sourceTitle">使用时先看这里</h2>
+        <ul id="sourceItems">
+          <li><strong>书院</strong><span>日常管理、集体活动、志愿招募、书院政策、学业辅导。</span></li>
+          <li><strong>学院</strong><span>专业培养、学科动态、科研座谈、竞赛、升学就业。</span></li>
+          <li><strong>团学号</strong><span>书院团委、学生会、学业辅导团常有单独公众号。</span></li>
+        </ul>
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section id="accounts" class="section shell">
+      <div class="section-head compact">
+        <div>
+          <p class="kicker" id="accountKicker">ACCOUNT CHECKLIST</p>
+          <h2 id="accountTitle">关注清单</h2>
+        </div>
+        <p id="accountLead">不是所有号都要每天看，但这些入口决定你能不能及时收到和自己有关的信息。</p>
+      </div>
+      <div class="check-grid" id="checkGrid">
+        <article class="check-card priority">
+          <span class="check-index">必看 01</span>
+          <h3>归属书院官方公众号</h3>
+          <p>书院通常承担本科生在园区、班团、活动、评奖评优、请假去向、志愿实践等方面的日常通知。</p>
+        </article>
+        <article class="check-card">
+          <span class="check-index">必看 02</span>
+          <h3>书院团委 / 学生会 / 学业辅导团</h3>
+          <p>很多招新、志愿、社团活动、朋辈答疑和学业辅导不会只发在书院官方号上，需要补齐这些组织号。</p>
+        </article>
+        <article class="check-card">
+          <span class="check-index">必看 03</span>
+          <h3>所在学院官方公众号</h3>
+          <p>学院侧更靠近专业培养：讲座、科研训练、实验室开放、竞赛项目、转专业与升学就业信息都更常见。</p>
+        </article>
+        <article class="check-card">
+          <span class="check-index">建议 04</span>
+          <h3>高年级阶段留意启德书院</h3>
+          <p>启德书院位于创新港。前往创新港后的生活与管理信息，尤其要注意启德和所在学院的同步通知。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="map" class="section shell">
+      <div class="section-head compact">
+        <div>
+          <p class="kicker" id="mapKicker">PHYSICS MAP</p>
+          <h2 id="mapTitle">关系图谱</h2>
+        </div>
+      </div>
+
+      <div class="physics-layout academy-layout">
+        <div class="physics-panel">
+          <div class="physics-topline">
+            <strong id="academyTitle">书院框</strong>
+            <span id="academyHint">点击查看管辖范围</span>
+          </div>
+          <div id="academyWorld" class="physics-world academy-world" aria-label="书院物理小球图谱"></div>
+        </div>
+        <aside id="academyInspector" class="inspector compact-inspector" aria-live="polite"></aside>
+      </div>
+      <section class="toolbar school-toolbar" aria-label="搜索与筛选">
+        <div class="search-row">
+          <label class="search-wrap">
+            <input id="globalSearch" type="search" placeholder="搜索：学院、专业、学位门类、创新港、人工智能..." autocomplete="off">
+            <span>⌕</span>
+          </label>
+          <button id="clearSearch" class="tool-btn" type="button">清空</button>
+        </div>
+        <div class="mode-row" id="modeFilters" aria-label="筛选类型"></div>
+      </section>
+      <div class="physics-layout school-layout">
+        <aside id="schoolInspector" class="inspector compact-inspector" aria-live="polite"></aside>
+        <div class="physics-panel">
+          <div class="physics-topline">
+            <strong id="schoolTitle">学院框</strong>
+            <span id="schoolHint">点击查看本科专业</span>
+          </div>
+          <div id="schoolWorld" class="physics-world school-world" aria-label="学院物理小球图谱"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="directory" class="section shell">
+      <div class="section-head compact">
+        <div>
+          <p class="kicker" id="directoryKicker">DIRECTORY</p>
+          <h2 id="directoryTitle">文字速查</h2>
+        </div>
+        <p id="directoryLead">更适合快速查专业、查书院范围；与上方搜索框联动。</p>
+      </div>
+      <div class="directory-tabs">
+        <button class="tab-btn active" type="button" data-directory="academies">书院范围</button>
+        <button class="tab-btn" type="button" data-directory="schools">学院专业</button>
+      </div>
+      <div id="directoryList" class="directory-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <p id="footerNote">
+      资料来源：西安交通大学官网本科书院页面、院系设置页面，以及教务处《西安交通大学本科招生专业（2025年）》。
+      页面为学生自制整理，实际归属与通知以学校和各书院、学院最新发布为准。
+    </p>
+    <div>
+      <a href="https://www.xjtu.edu.cn/bksy.htm" target="_blank" rel="noreferrer">本科书院</a>
+      <a href="https://www.xjtu.edu.cn/yxsz.htm" target="_blank" rel="noreferrer">院系设置</a>
+      <a href="https://dean.xjtu.edu.cn/info/1271/9087.htm" target="_blank" rel="noreferrer">本科专业</a>
+    </div>
+  </footer>
+  <footer class="site-footer" id="siteFooter">开发维护：润铎</footer>
+
+  <script src="./XJTU-College-data.js"></script>
+  <script src="./XJTU-College-客户端-app.js"></script>
+</body>
+</html>

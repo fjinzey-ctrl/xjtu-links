@@ -1,0 +1,2473 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>西交常用网站汇总</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f3ee;
+      --panel: #fffdf9;
+      --text: #221f1f;
+      --muted: #6f6a64;
+      --line: #e7ded3;
+      --brand: #b91c1c;
+      --brand-dark: #8f1212;
+      --gold: #b7791f;
+      --blue: #2563a8;
+      --green: #16815f;
+      --ink: #2d2a26;
+      --shadow: 0 18px 48px rgba(50, 35, 24, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(185, 28, 28, 0.09), transparent 38%),
+        linear-gradient(315deg, rgba(37, 99, 168, 0.08), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    body.mobile-scroll-lock {
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .notice,
+    .admission-strip,
+    .toolbar,
+    .category-nav,
+    .developing-panel,
+    .site-card,
+    .empty-state,
+    .note-box {
+      background: rgba(255, 253, 249, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: linear-gradient(var(--brand), var(--gold), var(--blue));
+    }
+
+    .kicker {
+      margin: 0 0 6px;
+      color: var(--brand-dark);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      text-indent: 2em;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      min-width: 0;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff8ef;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .notice {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      background: #2d2a26;
+      color: #fffaf2;
+    }
+
+    .notice h2 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .notice p {
+      margin: 8px 0 0;
+      color: #e8ddcf;
+      font-size: 14px;
+      text-indent: 2em;
+    }
+
+    .notice-legend {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .notice-legend li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      padding-top: 8px;
+      color: #f6eadb;
+      font-size: 13px;
+    }
+
+    .notice-legend strong {
+      color: #ffd58a;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .notice-legend span {
+      color: #e8ddcf;
+    }
+
+    .admission-strip {
+      display: grid;
+      grid-template-columns: minmax(170px, 0.42fr) minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 18px;
+      margin: 4px auto 12px;
+      border-left: 6px solid var(--brand);
+    }
+
+    .admission-strip[hidden] {
+      display: none;
+    }
+
+    .admission-copy {
+      min-width: 0;
+    }
+
+    .admission-kicker {
+      margin: 0 0 2px;
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .admission-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .admission-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .admission-items li {
+      min-width: 0;
+      padding: 7px 10px;
+      border: 1px solid rgba(185, 28, 28, 0.16);
+      border-radius: var(--radius);
+      background: #fff8ef;
+      color: #4b4037;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .admission-qr {
+      display: grid;
+      grid-template-columns: 74px minmax(92px, auto);
+      gap: 9px;
+      align-items: center;
+      margin: 0;
+      padding-left: 12px;
+      border-left: 1px solid var(--line);
+    }
+
+    .admission-qr img {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .admission-qr figcaption {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .admission-qr strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 14px;
+      margin: 12px auto 18px;
+      backdrop-filter: blur(16px);
+    }
+
+    html[data-device="mobile"] .toolbar {
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      height: 48px;
+      padding: 0 48px 0 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: rgba(185, 28, 28, 0.6);
+      box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .clear-btn,
+    .filter-btn,
+    .action-btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 0.18s, border-color 0.18s, background 0.18s;
+    }
+
+    .clear-btn {
+      padding: 0 14px;
+      white-space: nowrap;
+    }
+
+    .clear-btn:hover,
+    .filter-btn:hover,
+    .action-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(185, 28, 28, 0.45);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .filter-btn {
+      padding: 7px 12px;
+      color: var(--muted);
+    }
+
+    .filter-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      padding-bottom: 34px;
+      min-width: 0;
+    }
+
+    .side-rail {
+      position: sticky;
+      top: 104px;
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .category-nav {
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .category-nav h2,
+    .developing-panel h2 {
+      margin: 4px 6px 10px;
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+
+    .category-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      border: 0;
+      color: var(--ink);
+      font-size: 14px;
+      font: inherit;
+      text-align: left;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .category-link:hover,
+    .category-link.active {
+      background: #f7e8dc;
+      color: var(--brand-dark);
+    }
+
+    .developing-panel {
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .developing-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .developing-link {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff8ef;
+      color: var(--ink);
+    }
+
+    .developing-link:hover {
+      border-color: rgba(185, 28, 28, 0.35);
+      background: #fff1e4;
+      color: var(--brand-dark);
+    }
+
+    .developing-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .developing-top strong {
+      min-width: 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .developing-top em {
+      flex: 0 0 auto;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #efe4d7;
+      color: var(--muted);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    .developing-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 22px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: #efe4d7;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      scroll-margin-top: 128px;
+      margin-bottom: 26px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 12px;
+      padding: 0 2px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .site-card {
+      min-width: 0;
+      max-width: 100%;
+      padding: 16px;
+      box-shadow: none;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+
+    .site-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(185, 28, 28, 0.36);
+      box-shadow: 0 12px 30px rgba(50, 35, 24, 0.09);
+    }
+
+    .card-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .card-top > .badge {
+      justify-self: start;
+    }
+
+    .category-meta {
+      justify-self: start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .category-meta strong {
+      color: var(--brand-dark);
+      font-weight: 700;
+    }
+
+    .site-card h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .url {
+      display: block;
+      max-width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      background: #eff6ff;
+      color: var(--blue);
+      font-family: "Consolas", "Cascadia Mono", "Microsoft YaHei", monospace;
+      font-size: 16px;
+      line-height: 1.45;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      transition: border-color 0.18s, background 0.18s, color 0.18s;
+    }
+
+    .url:hover {
+      border-color: #93c5fd;
+      background: #dbeafe;
+      color: #1d4e89;
+    }
+
+    .url-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      line-height: 1.3;
+      background: #efe8de;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .badge.important {
+      background: #fff0c2;
+      color: #8a4f00;
+    }
+
+    .badge.auth {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .badge.campus {
+      background: #dbeafe;
+      color: #1d4e89;
+    }
+
+    .badge.external {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.library {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .badge.retired {
+      background: #e5e7eb;
+      color: #4b5563;
+    }
+
+    .desc {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      text-indent: 2em;
+    }
+
+    .desc-toggle {
+      display: none;
+      margin: 4px 0 0 auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 11px;
+      font-size: 13px;
+      min-width: 0;
+    }
+
+    .action-btn.primary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .action-btn[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .empty-state,
+    .note-box {
+      padding: 20px;
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .note-box {
+      margin-top: 10px;
+      border-left: 5px solid var(--gold);
+    }
+
+    .note-box h2 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .note-box p {
+      margin: 0;
+      text-indent: 2em;
+    }
+
+    .note-box p + p {
+      margin-top: 8px;
+    }
+
+    .site-footer {
+      width: 100%;
+      margin: 0;
+      padding: 18px 16px;
+      background: var(--ink);
+      color: #f6eadb;
+      font-size: 14px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      white-space: pre-line;
+    }
+
+    .site-footer a {
+      color: #ffd58a;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 14px;
+      margin-top: 6px;
+      white-space: normal;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 30;
+      transform: translate(-50%, 16px);
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    mark {
+      padding: 0 2px;
+      border-radius: 3px;
+      background: #fde68a;
+      color: inherit;
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .admission-strip {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .admission-items {
+        grid-template-columns: 1fr;
+      }
+
+      .admission-qr {
+        grid-template-columns: 64px minmax(0, 1fr);
+        padding-left: 0;
+        padding-top: 10px;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .admission-qr img {
+        width: 64px;
+        height: 64px;
+      }
+
+      .side-rail {
+        position: static;
+      }
+
+      .category-nav .nav-list {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .category-link {
+        flex: 0 0 auto;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: var(--bg);
+      }
+
+      .shell {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0;
+        margin-left: 18px !important;
+        margin-right: 18px !important;
+      }
+
+      .hero {
+        padding-top: 10px;
+      }
+
+      .hero-main {
+        padding: 20px 16px;
+      }
+
+      .notice {
+        padding: 16px;
+      }
+
+      .notice-legend li {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .toolbar {
+        position: static;
+        padding: 12px;
+        margin: 10px auto 14px;
+        overflow: hidden;
+      }
+
+      .hero-grid,
+      .layout,
+      .cards,
+      .site-card,
+      .card-top,
+      .url-list,
+      .actions,
+      .note-box,
+      .category-nav,
+      .developing-panel,
+      .side-rail {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .search-row {
+        grid-template-columns: 1fr;
+      }
+
+      .clear-btn {
+        width: 100%;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .section-head p {
+        text-align: left;
+      }
+
+      .card-top {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        gap: 10px;
+      }
+
+      .site-card {
+        padding: 14px;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .action-btn {
+        min-width: 0;
+        padding: 0 8px;
+        width: 100%;
+        white-space: nowrap;
+      }
+
+      .filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .filters::-webkit-scrollbar,
+      .category-nav .nav-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-btn {
+        flex: 0 0 auto;
+      }
+
+      .category-nav .nav-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        max-width: 100%;
+        overflow: visible;
+      }
+
+      .category-link {
+        width: 100%;
+        min-height: 34px;
+        padding: 7px 8px;
+        font-size: 12px;
+        line-height: 1.25;
+        background: #fffaf5;
+        border: 1px solid var(--line);
+      }
+
+      .stat {
+        padding: 11px 12px;
+      }
+
+      .site-footer {
+        padding-bottom: calc(18px + env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (max-width: 390px) {
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .url {
+        font-size: 15px;
+      }
+    }
+
+    html[data-device="mobile"] h1 {
+      font-size: 32px;
+    }
+
+    html[data-device="mobile"],
+    html[data-device="mobile"] body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    html[data-device="mobile"] .shell {
+      width: auto !important;
+      max-width: none !important;
+      min-width: 0;
+      margin-left: 18px !important;
+      margin-right: 18px !important;
+    }
+
+    html[data-device="mobile"] .hero-grid,
+    html[data-device="mobile"] .layout,
+    html[data-device="mobile"] .cards,
+    html[data-device="mobile"] .site-card,
+    html[data-device="mobile"] .admission-strip,
+    html[data-device="mobile"] .toolbar,
+    html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .developing-panel,
+    html[data-device="mobile"] .side-rail,
+    html[data-device="mobile"] .note-box {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    html[data-device="mobile"] .layout,
+    html[data-device="mobile"] .hero-grid,
+    html[data-device="mobile"] .cards,
+    html[data-device="mobile"] .admission-strip {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-device="mobile"] .category-nav {
+      position: static;
+    }
+
+    html[data-device="mobile"] .category-nav .nav-list,
+    html[data-device="mobile"] .filters {
+      display: flex;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    html[data-device="mobile"] .category-nav .nav-list::-webkit-scrollbar,
+    html[data-device="mobile"] .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    html[data-device="mobile"] .category-link,
+    html[data-device="mobile"] .filter-btn {
+      flex: 0 0 auto;
+    }
+
+    html[data-device="mobile"] .actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+      max-width: 100%;
+    }
+
+    html[data-device="mobile"] .action-btn {
+      width: 100%;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    html[data-device="mobile"] .hero {
+      padding: 8px 0 8px;
+    }
+
+    html[data-device="mobile"] .hero-main {
+      padding: 18px 14px 14px;
+    }
+
+    html[data-device="mobile"] .kicker {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    html[data-device="mobile"] .lead {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    html[data-device="mobile"] .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    html[data-device="mobile"] .stat {
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    html[data-device="mobile"] .stat strong {
+      font-size: 18px;
+    }
+
+    html[data-device="mobile"] .stat span {
+      font-size: 11px;
+    }
+
+    html[data-device="mobile"] .notice {
+      padding: 13px;
+      gap: 10px;
+    }
+
+    html[data-device="mobile"] .notice h2 {
+      font-size: 17px;
+    }
+
+    html[data-device="mobile"] .notice p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    html[data-device="mobile"] .notice-legend {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    html[data-device="mobile"] .notice-legend li {
+      border-top: 0;
+      padding: 7px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    html[data-device="mobile"] .notice-legend strong,
+    html[data-device="mobile"] .notice-legend span {
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    html[data-device="mobile"] .toolbar {
+      padding: 10px;
+      margin: 8px auto 10px;
+    }
+
+    html[data-device="mobile"] .search-wrap input {
+      height: 42px;
+      padding-left: 12px;
+    }
+
+    html[data-device="mobile"] .clear-btn {
+      min-height: 34px;
+    }
+
+    html[data-device="mobile"] .filters {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    html[data-device="mobile"] .filter-btn {
+      width: 100%;
+      min-height: 32px;
+      padding: 5px 4px;
+      font-size: 12px;
+      white-space: normal;
+      line-height: 1.25;
+    }
+
+    html[data-device="mobile"] .layout {
+      gap: 10px;
+      padding-bottom: 18px;
+    }
+
+    html[data-device="mobile"] .side-rail {
+      position: static;
+      gap: 10px;
+    }
+
+    html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .developing-panel {
+      padding: 10px;
+      box-shadow: none;
+    }
+
+    html[data-device="mobile"] .category-nav h2,
+    html[data-device="mobile"] .developing-panel h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+    }
+
+    html[data-device="mobile"] .category-nav .nav-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    html[data-device="mobile"] .category-link {
+      width: 100%;
+      min-height: 34px;
+      padding: 7px 8px;
+      font-size: 12px;
+      line-height: 1.25;
+      background: #fffaf5;
+      border: 1px solid var(--line);
+    }
+
+    html[data-device="mobile"] .count {
+      min-width: 22px;
+      height: 20px;
+      padding: 0 5px;
+      font-size: 11px;
+    }
+
+    html[data-device="mobile"] .section {
+      scroll-margin-top: 12px;
+      margin-bottom: 14px;
+    }
+
+    html[data-device="mobile"] .section-head {
+      gap: 2px;
+      margin-bottom: 7px;
+    }
+
+    html[data-device="mobile"] .section-head h2 {
+      font-size: 20px;
+    }
+
+    html[data-device="mobile"] .section-head p {
+      font-size: 12px;
+    }
+
+    html[data-device="mobile"] .cards {
+      gap: 8px;
+    }
+
+    html[data-device="mobile"] .site-card {
+      width: 100%;
+      margin: 0 auto;
+      padding: 12px 13px;
+      border-radius: 8px;
+    }
+
+    html[data-device="mobile"] .site-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    html[data-device="mobile"] .card-top {
+      gap: 6px;
+    }
+
+    html[data-device="mobile"] .site-card h3 {
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    html[data-device="mobile"] .url-list {
+      gap: 4px;
+      margin-top: 5px;
+      width: calc(100% - 10px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    html[data-device="mobile"] .url {
+      padding: 5px 7px;
+      border-left-width: 3px;
+      font-size: 13px;
+      line-height: 1.35;
+      border-radius: 7px;
+    }
+
+    html[data-device="mobile"] .badges {
+      gap: 4px;
+      margin-top: 7px;
+    }
+
+    html[data-device="mobile"] .badge {
+      min-height: 20px;
+      padding: 1px 6px;
+      font-size: 11px;
+    }
+
+    html[data-device="mobile"] .category-meta {
+      font-size: 12px;
+      margin-top: -2px;
+    }
+
+    html[data-device="mobile"] .desc {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      padding: 0 3px;
+    }
+
+    html[data-device="mobile"] .site-card.has-desc-overflow:not(.desc-expanded) .desc {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    html[data-device="mobile"] .site-card.has-desc-overflow .desc-toggle {
+      display: block;
+    }
+
+    html[data-device="mobile"] .actions {
+      gap: 6px;
+      margin-top: 9px;
+      width: calc(100% - 10px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    html[data-device="mobile"] .action-btn {
+      min-height: 32px;
+      padding: 0 6px;
+      font-size: 12px;
+      border-radius: 7px;
+    }
+
+    html[data-device="mobile"] .note-box {
+      padding: 14px;
+    }
+
+    html[data-device="mobile"] .note-box h2 {
+      font-size: 18px;
+    }
+
+    html[data-device="mobile"] .note-box p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    html[data-device="mobile"] .site-footer {
+      margin-top: 4px;
+      padding-top: 14px;
+      padding-bottom: calc(14px + env(safe-area-inset-bottom));
+      font-size: 13px;
+    }
+
+    @media (max-width: 390px) {
+      html[data-device="mobile"] .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      html[data-device="mobile"] .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      html[data-device="mobile"] .notice-legend {
+        grid-template-columns: 1fr;
+      }
+
+      html[data-device="mobile"] .actions {
+        grid-template-columns: 1fr;
+      }
+
+      html[data-device="mobile"] .shell {
+        margin-left: 14px !important;
+        margin-right: 14px !important;
+      }
+    }
+
+    html[data-device="mobile"] .lead,
+    html[data-device="mobile"] .notice p,
+    html[data-device="mobile"] .desc,
+    html[data-device="mobile"] .note-box p {
+      text-indent: 2em;
+    }
+
+    html[data-device="tablet"] .cards {
+      grid-template-columns: 1fr;
+    }
+  </style>
+  <script>
+    (function detectDeviceType() {
+      const root = document.documentElement;
+
+      function applyDeviceType() {
+        const width = window.innerWidth;
+        const pointerIsCoarse = window.matchMedia("(pointer: coarse)").matches;
+        const ua = navigator.userAgent || "";
+        const isMobileUA = /Android|iPhone|iPod|Mobile/i.test(ua);
+        const isTabletUA = /iPad|Tablet/i.test(ua) || (pointerIsCoarse && width >= 700 && width <= 1180);
+        const device = (isMobileUA || (pointerIsCoarse && width < 700)) ? "mobile" : (isTabletUA ? "tablet" : "desktop");
+
+        root.dataset.device = device;
+        if (document.body) {
+          document.body.classList.toggle("mobile-scroll-lock", device === "mobile");
+        }
+      }
+
+      applyDeviceType();
+      document.addEventListener("DOMContentLoaded", applyDeviceType);
+      window.addEventListener("resize", applyDeviceType, { passive: true });
+      window.addEventListener("orientationchange", applyDeviceType, { passive: true });
+    })();
+  </script>
+</head>
+<body>
+  <header class="hero shell">
+    <div class="hero-grid">
+      <section class="hero-main">
+        <p class="kicker" id="pageKicker">XJTU QUICK LINKS</p>
+        <h1 id="pageTitle">西交常用网站汇总</h1>
+        <p class="lead" id="pageLead">把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。</p>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <aside class="notice">
+        <div>
+          <h2 id="noticeTitle">访问前先看这里</h2>
+          <p id="noticeText">未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。</p>
+        </div>
+        <ul class="notice-legend" id="noticeLegend">
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <section class="admission-strip shell" id="admissionStrip" aria-label="新生入学提醒">
+    <div class="admission-copy">
+      <p class="admission-kicker" id="admissionKicker">新生入学提醒</p>
+      <h2 class="admission-title" id="admissionTitle">入学前先完成这几件事</h2>
+    </div>
+    <ul class="admission-items" id="admissionItems"></ul>
+    <figure class="admission-qr" id="admissionQrWrap">
+      <img id="admissionQr" src="assets/wecom-qr.png" alt="西安交通大学企业微信二维码">
+      <figcaption>
+        <strong id="admissionQrTitle">西安交通大学企业微信</strong>
+        <span id="admissionQrHint">扫码加入企业微信</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="toolbar shell" aria-label="搜索与筛选">
+    <div class="search-row">
+      <label class="search-wrap">
+        <input id="searchInput" type="search" placeholder="搜索：选课、成绩、图书馆、VPN、统一认证、四六级、教师主页..." autocomplete="off">
+        <span class="search-icon">⌕</span>
+      </label>
+      <button class="clear-btn" id="clearBtn" type="button">清空</button>
+    </div>
+    <div class="filters" id="filters"></div>
+  </section>
+
+  <main class="shell layout">
+    <aside class="side-rail">
+      <nav class="category-nav" aria-label="分类导航">
+        <h2>分类导航</h2>
+        <div class="nav-list" id="categoryNav"></div>
+      </nav>
+
+      <section class="developing-panel" id="developingPanel" aria-label="开发中页面">
+        <h2>开发中</h2>
+        <div class="developing-list" id="developingPages"></div>
+      </section>
+    </aside>
+
+    <div>
+      <div id="content"></div>
+      <section class="note-box">
+        <h2 id="noteTitle">说明与备注</h2>
+        <div id="noteParagraphs"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="siteFooter">维护者：润铎</footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const pageConfig = {
+          kicker: "XJTU QUICK LINKS",
+          title: "西交常用网站汇总",
+          lead: "把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。",
+          noticeTitle: "访问前先看这里",
+          noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
+          legendItems: [
+                {
+                      title: "重点网站",
+                      text: "与学习、办事、资源获取等校园流程关系密切"
+                },
+                {
+                      title: "图书馆",
+                      text: "图书馆内预约办理与文献数据库等入口"
+                },
+                {
+                      title: "校园网/VPN",
+                      text: "需连接校园网、教育网或通过VPN访问"
+                },
+                {
+                      title: "校外站点",
+                      text: "校外学习、考试、文献检索平台与工具网站"
+                }
+          ],
+          admissionStrip: {
+                enabled: true,
+                kicker: "新生入学提醒",
+                title: "入学前先完成这几件事",
+                items: [
+                      "根据录取通知书上的学号注册统一认证账号",
+                      "下载移动交通大学",
+                      "注册学生邮箱 @stu.xjtu.edu.cn",
+                      "加入西安交通大学企业微信"
+                ],
+                qrSrc: "assets/wecom-qr.png",
+                qrTitle: "西安交通大学企业微信",
+                qrHint: "扫码加入企业微信"
+          },
+          noteTitle: "说明与备注",
+          noteParagraphs: [
+                "本说明文档为学生自制，必然会有谬误之处。",
+                "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
+          ],
+          footerText: "开发维护：润铎/fjinze@stu.xjtu.edu.cn",
+          footerLinks: [
+                {
+                      label: "GitHub主页",
+                      url: "https://github.com/fjinzey-ctrl/"
+                },
+                {
+                      label: "GitHub Pages",
+                      url: "https://fjinzey-ctrl.github.io/xjtu-links/"
+                },
+                {
+                      label: "CloudFlare Pages",
+                      url: "https://xjtu-links.pages.dev/"
+                },
+                {
+                      label: "问题反馈",
+                      url: "mailto:fjinze@stu.xjtu.edu.cn"
+                }
+          ],
+          stats: [
+                {
+                      type: "total",
+                      label: "站点总数"
+                },
+                {
+                      type: "tag",
+                      tag: "popular",
+                      label: "日常高频"
+                },
+                {
+                      type: "tag",
+                      tag: "auth",
+                      label: "需统一认证"
+                },
+                {
+                      type: "tag",
+                      tag: "library",
+                      label: "图书馆"
+                }
+          ]
+    };
+
+    const tagDefinitions = [
+          {
+                id: "popular",
+                label: "高频",
+                filterLabel: "高频入口",
+                className: "",
+                searchText: "高频入口 日常高频"
+          },
+          {
+                id: "campus",
+                label: "校园网/VPN",
+                filterLabel: "校园网/VPN",
+                className: "campus",
+                searchText: "校园网 VPN"
+          },
+          {
+                id: "library",
+                label: "图书馆",
+                filterLabel: "图书馆",
+                className: "library",
+                searchText: "图书馆 lib library"
+          },
+          {
+                id: "auth",
+                label: "统一认证",
+                filterLabel: "统一认证",
+                className: "auth",
+                searchText: "统一认证 统一身份认证 登录"
+          },
+          {
+                id: "important",
+                label: "重点网站",
+                filterLabel: "重点网站",
+                className: "important",
+                searchText: "重点网站 学校日常运营重点网站 高频流程"
+          },
+          {
+                id: "external",
+                label: "校外",
+                filterLabel: "校外站点",
+                className: "external",
+                searchText: "校外站点"
+          },
+          {
+                id: "retired",
+                label: "已停用",
+                filterLabel: "已停用",
+                className: "retired",
+                searchText: "已停用 旧站"
+          }
+    ];
+
+    const categories = [
+          {
+                id: "front",
+                name: "放在前面",
+                hint: "账号、邮箱、网络、VPN 等先决入口"
+          },
+          {
+                id: "course",
+                name: "课程规划相关",
+                hint: "选课、考勤、新生选拔"
+          },
+          {
+                id: "study",
+                name: "日常学习相关",
+                hint: "课程平台、教务查询、图书馆预约"
+          },
+          {
+                id: "service",
+                name: "基础服务办理",
+                hint: "一网通办、财务、网络、宿舍"
+          },
+          {
+                id: "portal",
+                name: "部门信息公开与门户",
+                hint: "学校及其二级部门信息发布入口"
+          },
+          {
+                id: "resource",
+                name: "基础资源获取或查询",
+                hint: "教材、数据库、地图、软件、教师主页、档案查询"
+          },
+          {
+                id: "external",
+                name: "校外其余常用",
+                hint: "考试、学习平台、文献和工具站点"
+          },
+          {
+                id: "retired",
+                name: "校内已停用网站",
+                hint: "保留旧站信息，避免误用"
+          }
+    ];
+
+    const developingPages = [
+          {
+                title: "XJTU College",
+                status: "完善中",
+                description: "书院、学院与公众号信息速查页，现阶段持续补齐内容与交互。",
+                url: "./college/index.html"
+          }
+    ];
+
+    const sites = [
+          {
+                c: "front",
+                n: "交大总门户",
+                d: "西安交通大学官方网站总入口。",
+                u: "https://www.xjtu.edu.cn"
+          },
+          {
+                c: "front",
+                n: "统一身份认证注册",
+                d: "凭录取通知书上的学号注册统一身份认证账号。\n除登录此站点外，也可在登录移交或交大任一办事网站时注册。下方标有“统一认证”的站点均需要统一身份认证账号密码登录。",
+                short: "login",
+                auth: true
+          },
+          {
+                c: "front",
+                n: "移动交通大学下载",
+                d: "移动交通大学入口，下称“移交”。\n移交是在交日常生活中用处最大的软件，其主要功能是将“一网通办”的功能进行手机端适配",
+                links: [
+                      {
+                            label: "m.xjtu.edu.cn",
+                            url: "https://m.xjtu.edu.cn"
+                      },
+                      {
+                            label: "https://ywtb.xjtu.edu.cn/dataService/H5/pc/index.html",
+                            url: "https://ywtb.xjtu.edu.cn/dataService/H5/pc/index.html"
+                      }
+                ]
+          },
+          {
+                c: "front",
+                n: "学生邮箱使用",
+                d: "使用学生邮箱前需要先在“一网通办”或移交注册一个学生邮箱账号。\n学生邮箱网页版入口；移动端可下载 Coremail 论客。",
+                short: "stu",
+                popular: true
+          },
+          {
+                c: "front",
+                n: "校园用网申请",
+                d: "缴纳入网费，用于使用 XJTU_STU 与 xjtulib 等校园公用网络；后续备注“校园网”的站点需连接校园公用网络、宿舍教育网（需自行购买路由器）或通过 VPN 访问。",
+                short: "nethelp",
+                auth: true
+          },
+          {
+                c: "front",
+                n: "WebVPN",
+                d: "不连接校园网时访问需要校园网权限的网站。",
+                short: "webvpn",
+                popular: true,
+                auth: true
+          },
+          {
+                c: "front",
+                n: "SSLVPN",
+                d: "此链接仅是SSLVPN 配置教学引导；作用类似 webvpn，更适合电脑端。",
+                u: "https://nic.xjtu.edu.cn/wlfw/wlfw/SSL_VPNfw.htm",
+                popular: true
+          },
+          {
+                c: "course",
+                n: "本科选课",
+                d: "本科选课系统，日常不开放访问权限，需关注教务通知。",
+                short: "xkfw",
+                popular: true,
+                auth: true
+          },
+          {
+                c: "course",
+                n: "本科考勤",
+                d: "顾名思义，但日常很难打开",
+                short: "bkkq",
+                popular: true,
+                campus: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "front",
+                n: "新生选拔系统",
+                d: "未登录时可查询入学选拔政策，统一认证登陆后进入报名界面，同时也是少年班预二试验班选拔操作平台",
+                short: "xsxb",
+                auth: true
+          },
+          {
+                c: "study",
+                n: "思源学堂新版",
+                d: "日常交作业、找课件与直录播课，本科教学主阵地。",
+                short: "lms",
+                popular: true,
+                campus: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "study",
+                n: "教务办事大厅新版",
+                short: "jwxt",
+                d: "考试查询、成绩查询、教师查询、课表查询、课程查询、成绩单申领、学生评教、缓补考申请。",
+                campus: true,
+                auth: true,
+                important: true,
+                popular: true
+          },
+          {
+                c: "study",
+                n: "图书馆座位预约",
+                short: "rq.lib",
+                d: "图书馆座位预约，最好使用移交或手机端网页。",
+                campus: true,
+                auth: true,
+                important: true,
+                library: true
+          },
+          {
+                c: "study",
+                n: "图书馆空间预约",
+                short: "space.lib",
+                d: "图书馆独立隔间预约，可用于研讨或面试，需至少提前一天。",
+                campus: true,
+                auth: true,
+                important: true,
+                library: true
+          },
+          {
+                c: "study",
+                n: "本科生毕业设计管理平台（新版）",
+                u: "https://pec.xjtu.edu.cn/sjjx/bysj/bysjyq.htm",
+                d: "用于接收毕设工作消息，下载相关规定与模板。"
+          },
+          {
+                c: "study",
+                n: "大创管理平台",
+                u: "https://pts.xjtu.edu.cn/cxcy",
+                d: "大学生创新创业训练计划管理系统。",
+                campus: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "study",
+                n: "图书馆门户",
+                short: "lib",
+                d: "图书馆相关功能网站的跳转入口。",
+                campus: true,
+                library: true
+          },
+          {
+                c: "study",
+                n: "思源学堂门户",
+                d: "导航到学校学习资源平台或学校在各学习平台的 SPOC 站点，其实用处不大",
+                short: "syxt"
+          },
+          {
+                c: "service",
+                n: "一网通办",
+                d: "移交是一网通办的手机版",
+                short: "ywtb",
+                popular: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "service",
+                n: "财务处",
+                short: "jdcw",
+                d: "学费缴纳、个人财务查询与校级报销。",
+                auth: true
+          },
+          {
+                c: "service",
+                n: "学生成长支持系统",
+                d: "假期去向登记、新生课、实验室安全培训与心理普测。",
+                short: "ss",
+                popular: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "service",
+                n: "网络信息中心",
+                short: "nic",
+                d: "所有与校园用网相关的服务。"
+          },
+          {
+                c: "service",
+                n: "选宿",
+                short: "housing2021",
+                d: "选宿时会有通知，日常不开放访问权限；钱院等分配制宿舍可在选宿期间通过此站点查看分配结果。",
+                auth: true
+          },
+          {
+                c: "portal",
+                n: "校各部门信息公开",
+                u: "https://xxgk.xjtu.edu.cn/zxxxgk.htm",
+                d: "学校政务、财务信息公开。"
+          },
+          {
+                c: "portal",
+                n: "综合信息服务",
+                short: "info",
+                d: "老网站，日常使用较少。"
+          },
+          {
+                c: "portal",
+                n: "钱院门户",
+                d: "钱学森学院门户，有关开学选拔、珠峰计划等的拔尖培养信息也会在此发布。",
+                short: "bjb"
+          },
+          {
+                c: "portal",
+                n: "校团委门户",
+                short: "tuanwei",
+                d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。",
+                auth: true
+          },
+          {
+                c: "portal",
+                n: "实践教学中心",
+                short: "pec",
+                d: "校内实践、竞赛成绩等信息发布。"
+          },
+          {
+                c: "portal",
+                n: "教务处",
+                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
+                short: "jwc",
+                popular: true
+          },
+          {
+                c: "resource",
+                n: "课程教材",
+                short: "jiaocai.lib",
+                d: "各类教材电子书开放。",
+                campus: true,
+                auth: true,
+                important: true,
+                library: true
+          },
+          {
+                c: "resource",
+                n: "图书馆数据库导航",
+                d: "交大已购权限的文献与技术数据库查询和跳转入口；部分数据库如 CAS-SciFinder 等可能有另外的注册指引，需从图书馆官方信息中检索查找。",
+                short: "stat.lib",
+                popular: true,
+                campus: true,
+                library: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "resource",
+                n: "馆提存典藏预约",
+                short: "innopac.lib",
+                d: "提存书库、典藏书库图书预约，建议从移交或手机端操作。",
+                campus: true,
+                auth: true,
+                important: true,
+                library: true
+          },
+          {
+                c: "resource",
+                n: "少学组",
+                d: "（夹带私货）学生自行开发，用于少年班项目相关资料分享。",
+                u: "https://shaoxuezu.com"
+          },
+          {
+                c: "resource",
+                n: "校历",
+                short: "workflow",
+                d: "网页端校历；若要可打印成品，可找教务处微信公众号置顶文章。"
+          },
+          {
+                c: "resource",
+                n: "学校地图",
+                d: "第一个入口是药学院发布的校园地图。\n第二个入口是学校视觉形象识别系统内的地图集锦，130 校庆期间完善。",
+                links: [
+                      {
+                            label: "https://pharm.xjtu.edu.cn/info/1200/4032.htm",
+                            url: "https://pharm.xjtu.edu.cn/info/1200/4032.htm"
+                      },
+                      {
+                            label: "https://vi.xjtu.edu.cn/qt/jddt.htm",
+                            url: "https://vi.xjtu.edu.cn/qt/jddt.htm"
+                      }
+                ]
+          },
+          {
+                c: "resource",
+                n: "正版软件平台",
+                short: "ms",
+                d: "包含 Adobe、Office、MATLAB、MWorks、MathType、福昕等。",
+                auth: true,
+                important: true,
+                popular: true
+          },
+          {
+                c: "resource",
+                n: "视觉形象识别系统",
+                short: "vi",
+                d: "校徽、校名、各类标识高清图片与 PPT 模板。",
+                popular: true
+          },
+          {
+                c: "resource",
+                n: "教师个人主页",
+                d: "第一个是新版教师个人主页，第二个是旧版，现两系统已完成交接，两个域名通向同一个页面。\n教师主页内信息由教师自行填写，可用于查找教师研究课题与联系方式。",
+                links: [
+                      {
+                            label: "faculty",
+                            url: "https://faculty.xjtu.edu.cn"
+                      },
+                      {
+                            label: "gr",
+                            url: "https://gr.xjtu.edu.cn"
+                      }
+                ],
+                popular: true,
+                important: true
+          },
+          {
+                c: "external",
+                n: "雨课堂网页端",
+                u: "https://www.yuketang.cn/web",
+                d: "更多时候会使用微信小程序的雨课堂或长江雨课堂。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "长江雨课堂 SPOC",
+                u: "https://cjxjtu.yuketang.cn",
+                d: "长江雨课堂西交 SPOC 入口。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "中国大学 MOOC-XJTU",
+                u: "https://www.icourse163.org/spoc/university/XJTU",
+                d: "更多时候会使用手机版“中国大学 MOOC”。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "四六级",
+                u: "https://cet-bm.neea.edu.cn",
+                d: "全国大学英语四、六级考试报名入口。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "中国教育考试网",
+                u: "https://www.neea.edu.cn",
+                d: "教育考试相关查询和公告入口。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "智慧团建",
+                u: "https://zhtj.youth.cn/zhtj",
+                d: "团支部常用平台。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "学信网",
+                u: "https://www.chsi.com.cn",
+                d: "学籍学历电子身份凭证等。",
+                external: true
+          },
+          {
+                c: "external",
+                n: "清华开源软件镜像站",
+                d: "一个蛮不错的用于安装环境、下载宏包的镜像站。",
+                u: "https://mirrors.tuna.tsinghua.edu.cn",
+                external: true
+          },
+          {
+                c: "external",
+                n: "知网",
+                d: "你不能不知道他！\n中文文献检索常用平台；\n在校园网环境下可通过学校 IP 获取文献数据下载权限。",
+                u: "https://www.cnki.net",
+                external: true
+          },
+          {
+                c: "external",
+                n: "玻尔学术平台",
+                d: "其实这个不常用，但用这个查外文理工类文献还可以",
+                u: "https://www.bohrium.com",
+                external: true
+          },
+          {
+                c: "external",
+                n: "JSTOR 文献检索平台",
+                d: "其实这个更不常用，但用这个查外文社科类文献还可以",
+                u: "https://www.jstor.org",
+                external: true
+          },
+          {
+                c: "retired",
+                n: "教务办事大厅旧版",
+                short: "ehall",
+                d: "已停用，会自动跳转至 jwxt。",
+                retired: true
+          },
+          {
+                c: "retired",
+                n: "思源学堂旧版",
+                d: "已停用但仍可访问，不再同步信息。",
+                short: "bb",
+                retired: true
+          },
+          {
+                c: "retired",
+                n: "直录播课",
+                d: "已不再同步信息，相关服务可在 lms 上找到。",
+                links: [
+                      {
+                            label: "class",
+                            url: "https://class.xjtu.edu.cn"
+                      },
+                      {
+                            label: "rms-v5",
+                            url: "https://rms-v5.xjtu.edu.cn"
+                      }
+                ],
+                retired: true
+          },
+          {
+                c: "retired",
+                n: "本科生毕业设计管理平台（旧版）",
+                u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh",
+                d: "已停用，且无法访问。",
+                retired: true
+          },
+          {
+                c: "retired",
+                n: "师生综合服务大厅",
+                d: "已停用，且无法访问。",
+                short: "one2020",
+                retired: true
+          },
+          {
+                c: "resource",
+                n: "校档案馆",
+                d: "档案馆门户网站，可查询交大历年大事记、查档流程与申请查档入口等",
+                short: "archives",
+                campus: true
+          }
+    ];
+
+    const filters = [
+      { id: "all", label: "全部" },
+      ...tagDefinitions.map((tag) => ({ id: tag.id, label: tag.filterLabel || tag.label }))
+    ];
+
+    const state = {
+      query: "",
+      filter: "all",
+      category: "all"
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+    const content = $("#content");
+    const searchInput = $("#searchInput");
+
+    function siteLinks(site) {
+      if (site.links) return site.links;
+      if (site.u) return [{ label: site.u, url: site.u }];
+      if (site.short) {
+        const url = `https://${site.short}.xjtu.edu.cn`;
+        return [{ label: site.short, url }];
+      }
+      return [];
+    }
+
+    function getDisplayUrl(site) {
+      return siteLinks(site).map((link) => link.label).join(" 或 ");
+    }
+
+    function linkList(site) {
+      return siteLinks(site).map((link) => `
+        <a class="url" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${markText(link.label)}</a>
+      `).join("");
+    }
+
+    function normalize(text) {
+      return String(text || "").toLowerCase().replace(/\s+/g, "");
+    }
+
+    function matchesSearchAndTag(site) {
+      const haystack = normalize([
+        site.n,
+        site.short,
+        site.u,
+        site.d,
+        siteLinks(site).map((link) => `${link.label} ${link.url}`).join(" "),
+        tagDefinitions.filter((tag) => site[tag.id]).map((tag) => `${tag.label} ${tag.filterLabel || ""} ${tag.searchText || ""}`).join(" "),
+        categories.find((item) => item.id === site.c)?.name
+      ].join(" "));
+
+      const byQuery = !state.query || haystack.includes(normalize(state.query));
+      const byFilter = state.filter === "all" || Boolean(site[state.filter]);
+      return byQuery && byFilter;
+    }
+
+    function matches(site) {
+      const byCategory = state.category === "all" || site.c === state.category;
+      return matchesSearchAndTag(site) && byCategory;
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    function markText(text) {
+      const safe = escapeHtml(text);
+      const query = state.query.trim();
+      if (!query) return safe;
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return safe.replace(new RegExp(escapedQuery, "gi"), (match) => `<mark>${match}</mark>`);
+    }
+
+    function badges(site) {
+      return tagDefinitions
+        .filter((tag) => site[tag.id])
+        .map((tag) => `<span class="badge ${escapeHtml(tag.className || "")}">${escapeHtml(tag.label)}</span>`)
+        .join("");
+    }
+
+    function card(site) {
+      const links = siteLinks(site);
+      const displayUrl = getDisplayUrl(site);
+      const category = categories.find((item) => item.id === site.c);
+      const hasMultipleLinks = links.length > 1;
+      const openButtons = links.map((link, index) => `
+        <a class="action-btn ${index === 0 && !site.retired ? "primary" : ""}" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" ${site.retired ? "aria-disabled=\"true\"" : ""}>${hasMultipleLinks ? `点击跳转${index + 1}` : "点击跳转"}</a>
+      `).join("");
+      const copyButtons = links.map((link, index) => `
+        <button class="action-btn" type="button" data-copy="${escapeHtml(link.url)}">${hasMultipleLinks ? `复制网址${index + 1}` : "复制网址"}</button>
+      `).join("");
+
+      return `
+        <article class="site-card" data-category="${site.c}">
+          <div class="card-top">
+            <div>
+              <h3>${markText(site.n)}</h3>
+              <div class="url-list">
+                ${linkList(site)}
+              </div>
+            </div>
+            <span class="category-meta">所属分类 · <strong>${escapeHtml(category.name)}</strong></span>
+          </div>
+          <div class="badges">${badges(site)}</div>
+          <p class="desc">${markText(site.d)}</p>
+          <button class="desc-toggle" type="button" data-desc-toggle aria-expanded="false">更多</button>
+          <div class="actions">
+            ${openButtons}
+            ${copyButtons}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderStats() {
+      $("#stats").innerHTML = pageConfig.stats.map((item) => {
+        const value = item.type === "total" ? sites.length : sites.filter((site) => site[item.tag]).length;
+        return `
+        <div class="stat">
+          <strong>${value}</strong>
+          <span>${escapeHtml(item.label)}</span>
+        </div>
+      `;
+      }).join("");
+    }
+
+    function renderPageConfig() {
+      $("#pageKicker").textContent = pageConfig.kicker || "";
+      $("#pageTitle").textContent = pageConfig.title || "";
+      $("#pageLead").textContent = pageConfig.lead || "";
+      $("#noticeTitle").textContent = pageConfig.noticeTitle || "";
+      $("#noticeText").textContent = pageConfig.noticeText || "";
+      $("#noticeLegend").innerHTML = (pageConfig.legendItems || []).map((item) => `
+        <li><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text)}</span></li>
+      `).join("");
+      const admission = pageConfig.admissionStrip || {};
+      $("#admissionStrip").hidden = admission.enabled === false;
+      $("#admissionKicker").textContent = admission.kicker || "";
+      $("#admissionTitle").textContent = admission.title || "";
+      $("#admissionItems").innerHTML = (admission.items || []).filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      $("#admissionQrWrap").hidden = !admission.qrSrc;
+      $("#admissionQr").src = admission.qrSrc || "";
+      $("#admissionQr").alt = admission.qrTitle ? `${admission.qrTitle}二维码` : "二维码";
+      $("#admissionQrTitle").textContent = admission.qrTitle || "";
+      $("#admissionQrHint").textContent = admission.qrHint || "";
+      $("#noteTitle").textContent = pageConfig.noteTitle || "";
+      $("#noteParagraphs").innerHTML = (pageConfig.noteParagraphs || []).map((text) => `<p>${escapeHtml(text)}</p>`).join("");
+      const footerText = escapeHtml(pageConfig.footerText || "").replace(/\n/g, "<br>");
+      const footerLinks = (pageConfig.footerLinks || []).filter((link) => link && link.url).map((link) => `
+        <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label || link.url)}</a>
+      `).join("");
+      $("#siteFooter").innerHTML = `${footerText}${footerLinks ? `<div class="footer-links">${footerLinks}</div>` : ""}`;
+      document.title = pageConfig.title || document.title;
+    }
+
+    function renderDevelopingPages() {
+      const panel = $("#developingPanel");
+      const list = $("#developingPages");
+      const pages = (developingPages || []).filter((page) => page && page.title && page.url);
+      panel.hidden = !pages.length;
+      list.innerHTML = pages.map((page) => `
+        <a class="developing-link" href="${escapeHtml(page.url)}">
+          <span class="developing-top">
+            <strong>${escapeHtml(page.title)}</strong>
+            <em>${escapeHtml(page.status || "开发中")}</em>
+          </span>
+          ${page.description ? `<span class="developing-desc">${escapeHtml(page.description)}</span>` : ""}
+        </a>
+      `).join("");
+    }
+
+    function renderFilters() {
+      $("#filters").innerHTML = filters.map((filter) => `
+        <button class="filter-btn ${state.filter === filter.id ? "active" : ""}" type="button" data-filter="${filter.id}">${filter.label}</button>
+      `).join("");
+    }
+
+    function renderNav(visibleSites) {
+      const items = [{ id: "all", name: "全部站点" }, ...categories];
+      $("#categoryNav").innerHTML = items.map((category) => {
+        const count = category.id === "all" ? visibleSites.length : visibleSites.filter((site) => site.c === category.id).length;
+        return `
+          <button class="category-link ${state.category === category.id ? "active" : ""}" type="button" data-nav="${category.id}">
+            <span>${escapeHtml(category.name)}</span>
+            <span class="count">${count}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderContent() {
+      const navVisible = sites.filter(matchesSearchAndTag);
+      const visible = navVisible.filter((site) => state.category === "all" || site.c === state.category);
+      renderNav(navVisible);
+      renderFilters();
+
+      if (!visible.length) {
+        content.innerHTML = `
+          <section class="empty-state">
+            没有找到匹配的网站。可以换一个关键词，或切回“全部”筛选和“全部站点”分类。
+          </section>
+        `;
+        return;
+      }
+
+      content.innerHTML = categories.map((category) => {
+        const group = visible.filter((site) => site.c === category.id);
+        if (!group.length) return "";
+        return `
+          <section class="section" id="${category.id}">
+            <div class="section-head">
+              <div>
+                <h2>${escapeHtml(category.name)}</h2>
+              </div>
+              <p>${escapeHtml(category.hint)}，共 ${group.length} 个</p>
+            </div>
+            <div class="cards">
+              ${group.map(card).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+      requestAnimationFrame(updateDescToggles);
+    }
+
+    function updateDescToggles() {
+      const isMobile = document.documentElement.dataset.device === "mobile";
+      document.querySelectorAll(".site-card").forEach((card) => {
+        const desc = card.querySelector(".desc");
+        const toggle = card.querySelector("[data-desc-toggle]");
+        if (!desc || !toggle) return;
+        card.classList.remove("has-desc-overflow");
+        toggle.hidden = true;
+        if (!isMobile) {
+          card.classList.remove("desc-expanded");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.textContent = "更多";
+          return;
+        }
+
+        const lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
+        const needsToggle = desc.scrollHeight > lineHeight * 2 + 3;
+        if (needsToggle) {
+          card.classList.add("has-desc-overflow");
+          toggle.hidden = false;
+          const expanded = card.classList.contains("desc-expanded");
+          toggle.setAttribute("aria-expanded", String(expanded));
+          toggle.textContent = expanded ? "收起" : "更多";
+        } else {
+          card.classList.remove("desc-expanded");
+        }
+      });
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("网址已复制");
+      } catch {
+        const input = document.createElement("input");
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+        showToast("网址已复制");
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const filterButton = event.target.closest("[data-filter]");
+      if (filterButton) {
+        state.filter = filterButton.dataset.filter;
+        renderContent();
+        return;
+      }
+
+      const navButton = event.target.closest("[data-nav]");
+      if (navButton) {
+        state.category = navButton.dataset.nav;
+        renderContent();
+        return;
+      }
+
+      const descToggle = event.target.closest("[data-desc-toggle]");
+      if (descToggle) {
+        const card = descToggle.closest(".site-card");
+        if (!card) return;
+        const expanded = card.classList.toggle("desc-expanded");
+        descToggle.setAttribute("aria-expanded", String(expanded));
+        descToggle.textContent = expanded ? "收起" : "更多";
+        return;
+      }
+
+      const copyButton = event.target.closest("[data-copy]");
+      if (copyButton) {
+        copyText(copyButton.dataset.copy);
+      }
+    });
+
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      renderContent();
+    });
+
+    $("#clearBtn").addEventListener("click", () => {
+      state.query = "";
+      state.filter = "all";
+      state.category = "all";
+      searchInput.value = "";
+      renderContent();
+      searchInput.focus();
+    });
+
+    window.addEventListener("resize", () => requestAnimationFrame(updateDescToggles), { passive: true });
+    window.addEventListener("orientationchange", () => requestAnimationFrame(updateDescToggles), { passive: true });
+
+    renderPageConfig();
+    renderDevelopingPages();
+    renderStats();
+    renderContent();
+  </script>
+</body>
+</html>
