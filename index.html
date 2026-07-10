@@ -1497,8 +1497,8 @@
 
   <script>
     const pageConfig = {
-          kicker: "XJTU QUICK LINKS",
-          title: "西交常用网站汇总",
+          kicker: "XJTU QUICK LINKS (UNDERGRADUATES)",
+          title: "西交常用网站汇总（本科生）",
           lead: "把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。",
           noticeTitle: "访问前先看这里",
           noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
@@ -1724,8 +1724,17 @@
           {
                 c: "front",
                 n: "校园用网申请",
-                d: "缴纳入网费，用于使用 XJTU_STU 与 xjtulib 等校园公用网络；后续备注“校园网”的站点需连接校园公用网络、宿舍教育网（需自行购买路由器）或通过 VPN 访问。",
-                short: "nethelp",
+                d: "缴纳入网费，用于使用 XJTU_STU 与 xjtulib 等校园公用网络；后续备注“校园网”的站点需连接校园公用网络、宿舍教育网（需自行购买路由器）或通过 VPN 访问。\n第二个链接是网信中心关于校园用网的说明。",
+                links: [
+                      {
+                            label: "nethelp.xjtu.edu.cn",
+                            url: "https://nethelp.xjtu.edu.cn"
+                      },
+                      {
+                            label: "校园用网说明",
+                            url: "https://nic.xjtu.edu.cn/xsfw/xywl.htm"
+                      }
+                ],
                 auth: true
           },
           {
@@ -1763,6 +1772,16 @@
           },
           {
                 c: "front",
+                n: "本科生劳育学习平台",
+                d: "本科生须在毕业前完成32学时的劳育课程学习，此平台用来管理个人劳育学习进度",
+                short: "ly",
+                popular: true,
+                campus: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "front",
                 n: "新生选拔系统",
                 d: "未登录时可查询入学选拔政策，统一认证登陆后进入报名界面，同时也是少年班预二试验班选拔操作平台",
                 short: "xsxb",
@@ -1774,19 +1793,26 @@
                 d: "日常交作业、找课件与直录播课，本科教学主阵地。",
                 short: "lms",
                 popular: true,
-                campus: true,
                 auth: true,
                 important: true
           },
           {
                 c: "study",
                 n: "教务办事大厅新版",
-                short: "jwxt",
                 d: "考试查询、成绩查询、教师查询、课表查询、课程查询、成绩单申领、学生评教、缓补考申请。",
-                campus: true,
+                short: "jwxt",
+                popular: true,
                 auth: true,
-                important: true,
-                popular: true
+                important: true
+          },
+          {
+                c: "study",
+                n: "教务办事大厅旧版",
+                d: "旧版教务办事大厅，特点是各功能页面分立，便于操作",
+                short: "ehall",
+                popular: true,
+                auth: true,
+                important: true
           },
           {
                 c: "study",
@@ -1810,15 +1836,26 @@
           },
           {
                 c: "study",
-                n: "本科生毕业设计管理平台（新版）",
-                u: "https://pec.xjtu.edu.cn/sjjx/bysj/bysjyq.htm",
-                d: "用于接收毕设工作消息，下载相关规定与模板。"
+                n: "本科生劳育理论课程学习平台",
+                d: "本科生须在毕业前完成32学时的劳育课程学习，其中包含8学时理论环节，在此平台完成。",
+                short: "vpahw",
+                campus: true,
+                auth: true,
+                important: true
+          },
+          {
+                c: "study",
+                n: "本科生毕业设计智能管理平台",
+                d: "用于接收主修或辅修专业毕设工作消息，下载相关规定与模板。",
+                u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh",
+                campus: true,
+                important: true
           },
           {
                 c: "study",
                 n: "大创管理平台",
-                u: "https://pts.xjtu.edu.cn/cxcy",
                 d: "大学生创新创业训练计划管理系统。",
+                u: "https://pts.xjtu.edu.cn/cxcy",
                 campus: true,
                 auth: true,
                 important: true
@@ -1903,8 +1940,9 @@
           {
                 c: "portal",
                 n: "实践教学中心",
+                d: "校内实践、竞赛成绩等信息发布。",
                 short: "pec",
-                d: "校内实践、竞赛成绩等信息发布。"
+                popular: true
           },
           {
                 c: "portal",
@@ -1916,12 +1954,12 @@
           {
                 c: "resource",
                 n: "课程教材",
+                d: "各类教材电子书开放阅读平台",
                 short: "jiaocai.lib",
-                d: "各类教材电子书开放。",
                 campus: true,
+                library: true,
                 auth: true,
-                important: true,
-                library: true
+                important: true
           },
           {
                 c: "resource",
@@ -2005,6 +2043,13 @@
                 important: true
           },
           {
+                c: "resource",
+                n: "校档案馆",
+                d: "档案馆门户网站，可查询交大历年大事记、查档流程与申请查档入口等",
+                short: "archives",
+                campus: true
+          },
+          {
                 c: "external",
                 n: "雨课堂网页端",
                 u: "https://www.yuketang.cn/web",
@@ -2083,13 +2128,6 @@
           },
           {
                 c: "retired",
-                n: "教务办事大厅旧版",
-                short: "ehall",
-                d: "已停用，会自动跳转至 jwxt。",
-                retired: true
-          },
-          {
-                c: "retired",
                 n: "思源学堂旧版",
                 d: "已停用但仍可访问，不再同步信息。",
                 short: "bb",
@@ -2113,24 +2151,10 @@
           },
           {
                 c: "retired",
-                n: "本科生毕业设计管理平台（旧版）",
-                u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh",
-                d: "已停用，且无法访问。",
-                retired: true
-          },
-          {
-                c: "retired",
                 n: "师生综合服务大厅",
                 d: "已停用，且无法访问。",
                 short: "one2020",
                 retired: true
-          },
-          {
-                c: "resource",
-                n: "校档案馆",
-                d: "档案馆门户网站，可查询交大历年大事记、查档流程与申请查档入口等",
-                short: "archives",
-                campus: true
           }
     ];
 
