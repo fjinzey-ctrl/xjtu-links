@@ -1499,7 +1499,7 @@
     const pageConfig = {
           kicker: "XJTU QUICK LINKS (UNDERGRADUATES)",
           title: "西交常用网站汇总（本科生）",
-          lead: "把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。",
+          lead: "把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。\n部分可能集成到一网通办的入口，例如出入境服务等，此处没有重复提及。",
           noticeTitle: "访问前先看这里",
           noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
           legendItems: [
@@ -1739,6 +1739,14 @@
           },
           {
                 c: "front",
+                n: "迎新系统",
+                d: "顾名思义",
+                short: "hello",
+                protocol: "http",
+                auth: true
+          },
+          {
+                c: "front",
                 n: "WebVPN",
                 d: "不连接校园网时访问需要校园网权限的网站。",
                 short: "webvpn",
@@ -1909,7 +1917,29 @@
                 c: "service",
                 n: "选宿",
                 short: "housing2021",
+                protocol: "http",
                 d: "选宿时会有通知，日常不开放访问权限；钱院等分配制宿舍可在选宿期间通过此站点查看分配结果。",
+                auth: true
+          },
+          {
+                c: "portal",
+                n: "教务处",
+                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
+                short: "jwc",
+                popular: true
+          },
+          {
+                c: "portal",
+                n: "实践教学中心",
+                d: "校内实践、竞赛成绩等信息发布。",
+                short: "pec",
+                popular: true
+          },
+          {
+                c: "portal",
+                n: "校团委门户",
+                short: "tuanwei",
+                d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。",
                 auth: true
           },
           {
@@ -1929,27 +1959,6 @@
                 n: "钱院门户",
                 d: "钱学森学院门户，有关开学选拔、珠峰计划等的拔尖培养信息也会在此发布。",
                 short: "bjb"
-          },
-          {
-                c: "portal",
-                n: "校团委门户",
-                short: "tuanwei",
-                d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。",
-                auth: true
-          },
-          {
-                c: "portal",
-                n: "实践教学中心",
-                d: "校内实践、竞赛成绩等信息发布。",
-                short: "pec",
-                popular: true
-          },
-          {
-                c: "portal",
-                n: "教务处",
-                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
-                short: "jwc",
-                popular: true
           },
           {
                 c: "resource",
@@ -1991,8 +2000,17 @@
           {
                 c: "resource",
                 n: "校历",
-                short: "workflow",
-                d: "网页端校历；若要可打印成品，可找教务处微信公众号置顶文章。"
+                d: "前者为网页端校历，UI设计简陋；若要可打印成品，可找教务处微信公众号置顶文章或第2个链接。",
+                links: [
+                      {
+                            label: "网页端",
+                            url: "http://one2020.xjtu.edu.cn/EIP/edu/education/schoolcalendar/showCalendar.htm"
+                      },
+                      {
+                            label: "图片下载",
+                            url: "https://dean.xjtu.edu.cn/xxfw/xl.htm"
+                      }
+                ]
           },
           {
                 c: "resource",
@@ -2012,11 +2030,12 @@
           {
                 c: "resource",
                 n: "正版软件平台",
-                short: "ms",
                 d: "包含 Adobe、Office、MATLAB、MWorks、MathType、福昕等。",
+                short: "ms",
+                popular: true,
+                campus: true,
                 auth: true,
-                important: true,
-                popular: true
+                important: true
           },
           {
                 c: "resource",
@@ -2154,6 +2173,7 @@
                 n: "师生综合服务大厅",
                 d: "已停用，且无法访问。",
                 short: "one2020",
+                protocol: "http",
                 retired: true
           }
     ];
@@ -2177,7 +2197,8 @@
       if (site.links) return site.links;
       if (site.u) return [{ label: site.u, url: site.u }];
       if (site.short) {
-        const url = `https://${site.short}.xjtu.edu.cn`;
+        const protocol = site.protocol === "http" ? "http" : "https";
+        const url = `${protocol}://${site.short}.xjtu.edu.cn`;
         return [{ label: site.short, url }];
       }
       return [];
