@@ -79,6 +79,7 @@
     .admission-strip,
     .toolbar,
     .category-nav,
+    .updated-panel,
     .developing-panel,
     .site-card,
     .empty-state,
@@ -324,12 +325,13 @@
       background: #fff;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: none;
+      transition: border-color 0.2s;
     }
 
     .search-wrap input:focus {
       border-color: rgba(185, 28, 28, 0.6);
-      box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.12);
+      box-shadow: none;
     }
 
     .search-icon {
@@ -407,6 +409,7 @@
     }
 
     .category-nav h2,
+    .updated-panel h2,
     .developing-panel h2 {
       margin: 4px 6px 10px;
       font-size: 15px;
@@ -441,6 +444,27 @@
     .developing-panel {
       padding: 12px;
       box-shadow: none;
+    }
+
+    .updated-panel {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      box-shadow: none;
+    }
+
+    .updated-panel h2 {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .updated-time {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
     }
 
     .developing-list {
@@ -711,6 +735,18 @@
       color: #fff;
     }
 
+    .action-btn.webvpn {
+      border-color: rgba(42, 91, 131, 0.34);
+      background: #edf5fb;
+      color: #214f73;
+      font-weight: 700;
+    }
+
+    .action-btn.webvpn:hover {
+      border-color: rgba(42, 91, 131, 0.62);
+      background: #e1eef8;
+    }
+
     .action-btn[disabled] {
       opacity: 0.55;
       cursor: not-allowed;
@@ -755,6 +791,13 @@
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.14);
       white-space: pre-line;
+    }
+
+    .footer-copyright {
+      margin-bottom: 6px;
+      color: #fff7eb;
+      font-weight: 600;
+      white-space: normal;
     }
 
     .site-footer a {
@@ -910,6 +953,7 @@
       .actions,
       .note-box,
       .category-nav,
+      .updated-panel,
       .developing-panel,
       .side-rail {
         width: 100%;
@@ -1037,6 +1081,7 @@
     html[data-device="mobile"] .admission-strip,
     html[data-device="mobile"] .toolbar,
     html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .updated-panel,
     html[data-device="mobile"] .developing-panel,
     html[data-device="mobile"] .side-rail,
     html[data-device="mobile"] .note-box {
@@ -1199,15 +1244,21 @@
     }
 
     html[data-device="mobile"] .category-nav,
+    html[data-device="mobile"] .updated-panel,
     html[data-device="mobile"] .developing-panel {
       padding: 10px;
       box-shadow: none;
     }
 
     html[data-device="mobile"] .category-nav h2,
+    html[data-device="mobile"] .updated-panel h2,
     html[data-device="mobile"] .developing-panel h2 {
       margin: 0 0 8px;
       font-size: 13px;
+    }
+
+    html[data-device="mobile"] .updated-panel h2 {
+      margin: 0;
     }
 
     html[data-device="mobile"] .category-nav .nav-list {
@@ -1343,6 +1394,10 @@
       border-radius: 7px;
     }
 
+    html[data-device="mobile"] .action-btn.webvpn {
+      grid-column: 1 / -1;
+    }
+
     html[data-device="mobile"] .note-box {
       padding: 14px;
     }
@@ -1476,6 +1531,11 @@
         <div class="nav-list" id="categoryNav"></div>
       </nav>
 
+      <section class="updated-panel" id="updatedPanel" aria-label="页面更新时间">
+        <h2>最近更新</h2>
+        <time class="updated-time" id="updatedTime"></time>
+      </section>
+
       <section class="developing-panel" id="developingPanel" aria-label="开发中页面">
         <h2>开发中</h2>
         <div class="developing-list" id="developingPages"></div>
@@ -1539,6 +1599,11 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
+          lastUpdated: "2026-07-29",
+          copyright: {
+                startYear: 2026,
+                holder: "Jinze"
+          },
           footerText: "开发维护：润铎/fjinze@stu.xjtu.edu.cn",
           footerLinks: [
                 {
@@ -1776,7 +1841,10 @@
                 popular: true,
                 campus: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421f2fc4a8d692862446b468ca88d1b203b/"
+                ]
           },
           {
                 c: "course",
@@ -1786,7 +1854,10 @@
                 popular: true,
                 campus: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fcee0f842d247d1e7b0c9ce29b5b/"
+                ]
           },
           {
                 c: "front",
@@ -1830,7 +1901,10 @@
                 campus: true,
                 auth: true,
                 important: true,
-                library: true
+                library: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e2e60f902e322648741c9ce29d51367bb80f/"
+                ]
           },
           {
                 c: "study",
@@ -1840,7 +1914,10 @@
                 campus: true,
                 auth: true,
                 important: true,
-                library: true
+                library: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e3e7409f227e64597c4691a68c406d304e8c7b84e2/"
+                ]
           },
           {
                 c: "study",
@@ -1849,7 +1926,10 @@
                 short: "vpahw",
                 campus: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e6e74094307e705a6a1dc7a99c406d36ce/"
+                ]
           },
           {
                 c: "study",
@@ -1857,7 +1937,10 @@
                 d: "用于接收主修或辅修专业毕设工作消息，下载相关规定与模板。",
                 u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh",
                 campus: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e0e352d23f3a7c45300d8db9d6562d/xajtdx_lw_zh"
+                ]
           },
           {
                 c: "study",
@@ -1866,7 +1949,10 @@
                 u: "https://pts.xjtu.edu.cn/cxcy",
                 campus: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e0e352d23f3a7c45300d8db9d6562d/cxcy"
+                ]
           },
           {
                 c: "study",
@@ -1874,7 +1960,10 @@
                 short: "lib",
                 d: "图书馆相关功能网站的跳转入口。",
                 campus: true,
-                library: true
+                library: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fcfe43d23f3a7c45300d8db9d6562d/"
+                ]
           },
           {
                 c: "study",
@@ -1968,7 +2057,10 @@
                 campus: true,
                 library: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fafe40932431611e72018be2805f3720598531843c7f7f/"
+                ]
           },
           {
                 c: "resource",
@@ -1979,7 +2071,10 @@
                 campus: true,
                 library: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e3e34088693c6152301083b88d1b2631e9cd6fc8/"
+                ]
           },
           {
                 c: "resource",
@@ -1989,7 +2084,10 @@
                 campus: true,
                 auth: true,
                 important: true,
-                library: true
+                library: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421f9f94f9337316b1e72018be2805f372054d5c12423ad05/"
+                ]
           },
           {
                 c: "resource",
@@ -2035,7 +2133,10 @@
                 popular: true,
                 campus: true,
                 auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fde40f842d247d1e7b0c9ce29b5b/"
+                ]
           },
           {
                 c: "resource",
@@ -2066,7 +2167,10 @@
                 n: "校档案馆",
                 d: "档案馆门户网站，可查询交大历年大事记、查档流程与申请查档入口等",
                 short: "archives",
-                campus: true
+                campus: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421f1e542942e266d43301083b88d1b26318d57ed88/"
+                ]
           },
           {
                 c: "external",
@@ -2275,6 +2379,10 @@
       const copyButtons = links.map((link, index) => `
         <button class="action-btn" type="button" data-copy="${escapeHtml(link.url)}">${hasMultipleLinks ? `复制网址${index + 1}` : "复制网址"}</button>
       `).join("");
+      const webvpnLinks = site.campus && !site.retired && Array.isArray(site.webvpnLinks) ? site.webvpnLinks : [];
+      const webvpnButtons = webvpnLinks.map((url, index) => `
+        <a class="action-btn webvpn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${webvpnLinks.length > 1 ? `通过WebVPN访问${index + 1}` : "通过WebVPN访问"}</a>
+      `).join("");
 
       return `
         <article class="site-card" data-category="${site.c}">
@@ -2293,6 +2401,7 @@
           <div class="actions">
             ${openButtons}
             ${copyButtons}
+            ${webvpnButtons}
           </div>
         </article>
       `;
@@ -2331,11 +2440,27 @@
       $("#admissionQrHint").textContent = admission.qrHint || "";
       $("#noteTitle").textContent = pageConfig.noteTitle || "";
       $("#noteParagraphs").innerHTML = (pageConfig.noteParagraphs || []).map((text) => `<p>${escapeHtml(text)}</p>`).join("");
+      const updatedAt = pageConfig.lastUpdated ? new Date(`${pageConfig.lastUpdated}T00:00:00`) : null;
+      const hasValidUpdatedAt = updatedAt && !Number.isNaN(updatedAt.getTime());
+      $("#updatedPanel").hidden = !hasValidUpdatedAt;
+      $("#updatedTime").dateTime = hasValidUpdatedAt ? pageConfig.lastUpdated : "";
+      $("#updatedTime").textContent = hasValidUpdatedAt
+        ? new Intl.DateTimeFormat("zh-CN", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }).format(updatedAt)
+        : "";
       const footerText = escapeHtml(pageConfig.footerText || "").replace(/\n/g, "<br>");
       const footerLinks = (pageConfig.footerLinks || []).filter((link) => link && link.url).map((link) => `
         <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label || link.url)}</a>
       `).join("");
-      $("#siteFooter").innerHTML = `${footerText}${footerLinks ? `<div class="footer-links">${footerLinks}</div>` : ""}`;
+      const copyright = pageConfig.copyright || {};
+      const startYear = Number(copyright.startYear) || 2026;
+      const currentYear = new Date().getFullYear();
+      const yearText = currentYear > startYear ? `${startYear}-${currentYear}` : String(startYear);
+      const copyrightText = `Copyright ©${yearText} ${copyright.holder || "Jinze"}, All Rights Reserved.`;
+      $("#siteFooter").innerHTML = `<div class="footer-copyright">${escapeHtml(copyrightText)}</div>${footerText}${footerLinks ? `<div class="footer-links">${footerLinks}</div>` : ""}`;
       document.title = pageConfig.title || document.title;
     }
 
