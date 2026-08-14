@@ -171,6 +171,26 @@
       letter-spacing: 0;
     }
 
+    .mobile-collapse-toggle {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: default;
+    }
+
+    .collapse-indicator {
+      display: none;
+    }
+
+    .notice .collapsible-body {
+      display: grid;
+      gap: 14px;
+    }
+
     .notice p {
       margin: 8px 0 0;
       color: #e8ddcf;
@@ -209,12 +229,20 @@
 
     .admission-strip {
       display: grid;
-      grid-template-columns: minmax(170px, 0.42fr) minmax(0, 1fr) auto;
+      grid-template-columns: minmax(170px, 0.42fr) minmax(0, 1fr);
       gap: 14px;
       align-items: center;
       padding: 14px 18px;
       margin: 4px auto 12px;
       border-left: 6px solid var(--brand);
+    }
+
+    .admission-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      min-width: 0;
     }
 
     .admission-strip[hidden] {
@@ -1057,6 +1085,7 @@
 
     html[data-device="mobile"] h1 {
       font-size: 32px;
+      white-space: nowrap;
     }
 
     html[data-device="mobile"],
@@ -1175,6 +1204,56 @@
       gap: 10px;
     }
 
+    html[data-device="mobile"] .mobile-collapse-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 32px;
+      cursor: pointer;
+    }
+
+    html[data-device="mobile"] .collapse-indicator {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      font-size: 16px;
+      line-height: 1;
+      opacity: 0.72;
+      transition: transform 0.18s ease;
+    }
+
+    html[data-device="mobile"] .mobile-collapsible.is-expanded .collapse-indicator {
+      transform: rotate(45deg);
+    }
+
+    html[data-device="mobile"] .mobile-collapsible:not(.is-expanded) .collapsible-body {
+      display: none;
+    }
+
+    html[data-device="mobile"] .admission-toggle .admission-copy {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 9px;
+    }
+
+    html[data-device="mobile"] .admission-toggle .admission-kicker,
+    html[data-device="mobile"] .admission-toggle .admission-title {
+      margin: 0;
+    }
+
+    html[data-device="mobile"] .admission-body {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding-top: 10px;
+    }
+
     html[data-device="mobile"] .notice h2 {
       font-size: 17px;
     }
@@ -1277,6 +1356,19 @@
       line-height: 1.25;
       background: #fffaf5;
       border: 1px solid var(--line);
+    }
+
+    html[data-device="mobile"] .category-link.active {
+      border-color: var(--brand-dark);
+      background: var(--brand);
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      font-weight: 700;
+    }
+
+    html[data-device="mobile"] .category-link.active .count {
+      background: #fff;
+      color: var(--brand-dark);
     }
 
     html[data-device="mobile"] .count {
@@ -1487,30 +1579,38 @@
         <div class="stats" id="stats"></div>
       </section>
 
-      <aside class="notice">
-        <div>
+      <aside class="notice mobile-collapsible" id="noticePanel">
+        <button class="mobile-collapse-toggle" type="button" data-collapse-toggle="noticePanel" aria-expanded="false">
           <h2 id="noticeTitle">访问前先看这里</h2>
+          <span class="collapse-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="collapsible-body">
           <p id="noticeText">未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。</p>
+          <ul class="notice-legend" id="noticeLegend">
+          </ul>
         </div>
-        <ul class="notice-legend" id="noticeLegend">
-        </ul>
       </aside>
     </div>
   </header>
 
-  <section class="admission-strip shell" id="admissionStrip" aria-label="新生入学提醒">
-    <div class="admission-copy">
-      <p class="admission-kicker" id="admissionKicker">新生入学提醒</p>
-      <h2 class="admission-title" id="admissionTitle">入学前先完成这几件事</h2>
+  <section class="admission-strip shell mobile-collapsible" id="admissionStrip" aria-label="新生入学提醒">
+    <button class="mobile-collapse-toggle admission-toggle" type="button" data-collapse-toggle="admissionStrip" aria-expanded="false">
+      <span class="admission-copy">
+        <span class="admission-kicker" id="admissionKicker">新生入学提醒</span>
+        <span class="admission-title" id="admissionTitle">入学前先完成这几件事</span>
+      </span>
+      <span class="collapse-indicator" aria-hidden="true">+</span>
+    </button>
+    <div class="admission-body collapsible-body">
+      <ul class="admission-items" id="admissionItems"></ul>
+      <figure class="admission-qr" id="admissionQrWrap">
+        <img id="admissionQr" src="assets/wecom-qr.png" alt="西安交通大学企业微信二维码">
+        <figcaption>
+          <strong id="admissionQrTitle">西安交通大学企业微信</strong>
+          <span id="admissionQrHint">扫码加入企业微信</span>
+        </figcaption>
+      </figure>
     </div>
-    <ul class="admission-items" id="admissionItems"></ul>
-    <figure class="admission-qr" id="admissionQrWrap">
-      <img id="admissionQr" src="assets/wecom-qr.png" alt="西安交通大学企业微信二维码">
-      <figcaption>
-        <strong id="admissionQrTitle">西安交通大学企业微信</strong>
-        <span id="admissionQrHint">扫码加入企业微信</span>
-      </figcaption>
-    </figure>
   </section>
 
   <section class="toolbar shell" aria-label="搜索与筛选">
@@ -1536,9 +1636,12 @@
         <time class="updated-time" id="updatedTime"></time>
       </section>
 
-      <section class="developing-panel" id="developingPanel" aria-label="开发中页面">
-        <h2>开发中</h2>
-        <div class="developing-list" id="developingPages"></div>
+      <section class="developing-panel mobile-collapsible" id="developingPanel" aria-label="开发中页面">
+        <button class="mobile-collapse-toggle" type="button" data-collapse-toggle="developingPanel" aria-expanded="false">
+          <h2>开发中</h2>
+          <span class="collapse-indicator" aria-hidden="true">+</span>
+        </button>
+        <div class="developing-list collapsible-body" id="developingPages"></div>
       </section>
     </aside>
 
@@ -1559,7 +1662,7 @@
     const pageConfig = {
           kicker: "XJTU QUICK LINKS (UNDERGRADUATES)",
           title: "西交常用网站汇总（本科生）",
-          lead: "把教务、学习、图书馆、校园服务、资源查询和校外考试平台集中到一个页面。支持关键词搜索、按类别跳转、筛选校园网/VPN站点、统一认证站点和学校日常运营重点网站。\n部分可能集成到一网通办的入口，例如出入境服务等，此处没有重复提及。",
+          lead: "本站为非官方信息导航项目，与相关学校、学院及书院官方网站不存在隶属关系。 站内名称、标识及外部链接仅用于信息索引，相关权益归原权利人所有。\n\n支持关键词搜索、按类别跳转、WebVPN网址转换等。\n部分可能集成到一网通办的入口，例如出入境服务等，此处没有重复提及。",
           noticeTitle: "访问前先看这里",
           noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
           legendItems: [
@@ -1601,7 +1704,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-04",
+          lastUpdated: "2026-08-14",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -1814,6 +1917,14 @@
           },
           {
                 c: "front",
+                n: "宿舍选择",
+                d: "选宿时会有通知，日常不开放访问权限；钱院等分配制宿舍可在选宿期间通过此站点查看分配结果。",
+                short: "housing2021",
+                protocol: "http",
+                auth: true
+          },
+          {
+                c: "front",
                 n: "WebVPN",
                 d: "不连接校园网时访问需要校园网权限的网站。",
                 short: "webvpn",
@@ -1826,6 +1937,13 @@
                 d: "此链接仅是SSLVPN 配置教学引导；作用类似 webvpn，更适合电脑端。",
                 u: "https://nic.xjtu.edu.cn/wlfw/wlfw/SSL_VPNfw.htm",
                 popular: true
+          },
+          {
+                c: "front",
+                n: "新生选拔系统",
+                d: "未登录时可查询入学选拔政策，统一认证登陆后进入报名界面，同时也是少年班预二试验班选拔操作平台",
+                short: "xsxb",
+                auth: true
           },
           {
                 c: "course",
@@ -1860,13 +1978,6 @@
                 webvpnLinks: [
                       "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fcee0f842d247d1e7b0c9ce29b5b/"
                 ]
-          },
-          {
-                c: "front",
-                n: "新生选拔系统",
-                d: "未登录时可查询入学选拔政策，统一认证登陆后进入报名界面，同时也是少年班预二试验班选拔操作平台",
-                short: "xsxb",
-                auth: true
           },
           {
                 c: "study",
@@ -1970,7 +2081,7 @@
           {
                 c: "study",
                 n: "思源学堂门户",
-                d: "导航到学校学习资源平台或学校在各学习平台的 SPOC 站点，其实用处不大",
+                d: "用处不大。导航到学校学习资源平台或学校在各学习平台的 SPOC 站点，其实用处不大",
                 short: "syxt"
           },
           {
@@ -2005,14 +2116,6 @@
                 d: "所有与校园用网相关的服务。"
           },
           {
-                c: "service",
-                n: "选宿",
-                short: "housing2021",
-                protocol: "http",
-                d: "选宿时会有通知，日常不开放访问权限；钱院等分配制宿舍可在选宿期间通过此站点查看分配结果。",
-                auth: true
-          },
-          {
                 c: "portal",
                 n: "教务处",
                 d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
@@ -2036,20 +2139,20 @@
           {
                 c: "portal",
                 n: "校各部门信息公开",
-                u: "https://xxgk.xjtu.edu.cn/zxxxgk.htm",
-                d: "学校政务、财务信息公开。"
-          },
-          {
-                c: "portal",
-                n: "综合信息服务",
-                short: "info",
-                d: "老网站，日常使用较少。"
+                d: "全校性质的管理办法等公开查询，以及学校政务、财务信息公开。\n我常用搜索，不然一级一级查找太麻烦。“/zxxxgk.htm”子页面的信息保持更新。",
+                short: "xxgk"
           },
           {
                 c: "portal",
                 n: "钱院门户",
                 d: "钱学森学院门户，有关开学选拔、珠峰计划等的拔尖培养信息也会在此发布。",
                 short: "bjb"
+          },
+          {
+                c: "portal",
+                n: "综合信息服务",
+                short: "info",
+                d: "老网站，日常使用较少。"
           },
           {
                 c: "resource",
@@ -2093,9 +2196,31 @@
           },
           {
                 c: "resource",
-                n: "少学组",
-                d: "（夹带私货）学生自行开发，用于少年班项目相关资料分享。",
-                u: "https://shaoxuezu.com"
+                n: "正版软件平台",
+                d: "包含 Adobe、Office、MATLAB、MWorks、MathType、福昕等。",
+                short: "ms",
+                popular: true,
+                campus: true,
+                auth: true,
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fde40f842d247d1e7b0c9ce29b5b/"
+                ]
+          },
+          {
+                c: "resource",
+                n: "WPS 365",
+                d: "白嫖学校的WPS 365账号，相关可见https://mp.weixin.qq.com/s/KXTE5tZdE834aVczZDWpLw",
+                links: [
+                      {
+                            label: "wps",
+                            url: "https://wps.xjtu.edu.cn/"
+                      },
+                      {
+                            label: "说明推文",
+                            url: "https://mp.weixin.qq.com/s/KXTE5tZdE834aVczZDWpLw"
+                      }
+                ]
           },
           {
                 c: "resource",
@@ -2118,26 +2243,13 @@
                 d: "第一个入口是药学院发布的校园地图。\n第二个入口是学校视觉形象识别系统内的地图集锦，130 校庆期间完善。",
                 links: [
                       {
-                            label: "https://pharm.xjtu.edu.cn/info/1200/4032.htm",
+                            label: "野图",
                             url: "https://pharm.xjtu.edu.cn/info/1200/4032.htm"
                       },
                       {
-                            label: "https://vi.xjtu.edu.cn/qt/jddt.htm",
+                            label: "官网图",
                             url: "https://vi.xjtu.edu.cn/qt/jddt.htm"
                       }
-                ]
-          },
-          {
-                c: "resource",
-                n: "正版软件平台",
-                d: "包含 Adobe、Office、MATLAB、MWorks、MathType、福昕等。",
-                short: "ms",
-                popular: true,
-                campus: true,
-                auth: true,
-                important: true,
-                webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fde40f842d247d1e7b0c9ce29b5b/"
                 ]
           },
           {
@@ -2163,6 +2275,12 @@
                 ],
                 popular: true,
                 important: true
+          },
+          {
+                c: "resource",
+                n: "少学组",
+                d: "（夹带私货）学生自行开发，用于少年班项目相关资料分享。",
+                u: "https://shaoxuezu.com"
           },
           {
                 c: "resource",
@@ -2278,8 +2396,16 @@
                 c: "retired",
                 n: "师生综合服务大厅",
                 d: "已停用，仍可打开，但相关功能已经集成到ywtb或ss。",
-                short: "one2020",
-                protocol: "http",
+                links: [
+                      {
+                            label: "one2020",
+                            url: "http://one2020.xjtu.edu.cn"
+                      },
+                      {
+                            label: "one",
+                            url: "http://one.xjtu.edu.cn"
+                      }
+                ],
                 retired: true
           }
     ];
@@ -2321,23 +2447,87 @@
     }
 
     function normalize(text) {
-      return String(text || "").toLowerCase().replace(/\s+/g, "");
+      return String(text || "").toLowerCase().replace(/[\s\p{P}\p{S}]+/gu, "");
+    }
+
+    function bigramDice(left, right) {
+      if (left === right) return 1;
+      if (left.length < 2 || right.length < 2) return 0;
+      const pairs = new Map();
+      for (let index = 0; index < left.length - 1; index += 1) {
+        const pair = left.slice(index, index + 2);
+        pairs.set(pair, (pairs.get(pair) || 0) + 1);
+      }
+      let overlap = 0;
+      for (let index = 0; index < right.length - 1; index += 1) {
+        const pair = right.slice(index, index + 2);
+        const count = pairs.get(pair) || 0;
+        if (count) {
+          overlap += 1;
+          pairs.set(pair, count - 1);
+        }
+      }
+      return (2 * overlap) / (left.length + right.length - 2);
+    }
+
+    function subsequenceScore(query, target) {
+      let matched = 0;
+      let first = -1;
+      let last = -1;
+      for (let index = 0; index < target.length && matched < query.length; index += 1) {
+        if (target[index] === query[matched]) {
+          if (first < 0) first = index;
+          last = index;
+          matched += 1;
+        }
+      }
+      if (matched !== query.length) return 0;
+      const span = Math.max(1, last - first + 1);
+      return (query.length / span) * (query.length / Math.max(query.length, target.length));
+    }
+
+    function fieldSimilarity(query, target) {
+      const normalizedTarget = normalize(target);
+      if (!query || !normalizedTarget) return 0;
+      const exactIndex = normalizedTarget.indexOf(query);
+      if (exactIndex >= 0) {
+        const prefixBonus = exactIndex === 0 ? 0.18 : 0;
+        return 1 + prefixBonus + Math.min(0.16, query.length / normalizedTarget.length * 0.16);
+      }
+      if (query.length < 2) return 0;
+      return Math.max(
+        bigramDice(query, normalizedTarget) * 0.82,
+        subsequenceScore(query, normalizedTarget) * 0.76
+      );
+    }
+
+    function siteSearchScore(site) {
+      const rawQuery = state.query.trim();
+      if (!rawQuery) return 1;
+      const queries = rawQuery.split(/\s+/).map(normalize).filter(Boolean);
+      if (!queries.length) return 1;
+      const category = categories.find((item) => item.id === site.c);
+      const linkFields = siteLinks(site).flatMap((link) => [[link.label, 0.92], [link.url, 0.88]]);
+      const tagFields = tagDefinitions
+        .filter((tag) => site[tag.id])
+        .flatMap((tag) => [[tag.label, 0.88], [tag.filterLabel, 0.86], [tag.searchText, 0.84]]);
+      const fields = [
+        [site.n, 1],
+        [site.short, 0.94],
+        [site.u, 0.9],
+        [category?.name, 0.82],
+        [site.d, 0.72],
+        ...linkFields,
+        ...tagFields
+      ];
+      const scores = queries.map((query) => Math.max(...fields.map(([value, weight]) => fieldSimilarity(query, value) * weight)));
+      if (scores.some((score) => score < 0.28)) return 0;
+      return scores.reduce((sum, score) => sum + score, 0) / scores.length;
     }
 
     function matchesSearchAndTag(site) {
-      const haystack = normalize([
-        site.n,
-        site.short,
-        site.u,
-        site.d,
-        siteLinks(site).map((link) => `${link.label} ${link.url}`).join(" "),
-        tagDefinitions.filter((tag) => site[tag.id]).map((tag) => `${tag.label} ${tag.filterLabel || ""} ${tag.searchText || ""}`).join(" "),
-        categories.find((item) => item.id === site.c)?.name
-      ].join(" "));
-
-      const byQuery = !state.query || haystack.includes(normalize(state.query));
       const byFilter = state.filter === "all" || Boolean(site[state.filter]);
-      return byQuery && byFilter;
+      return byFilter && siteSearchScore(site) > 0;
     }
 
     function matches(site) {
@@ -2502,8 +2692,11 @@
     }
 
     function renderContent() {
-      const navVisible = sites.filter(matchesSearchAndTag);
-      const visible = navVisible.filter((site) => state.category === "all" || site.c === state.category);
+      const scored = sites
+        .map((site, index) => ({ site, index, score: siteSearchScore(site) }))
+        .filter(({ site, score }) => score > 0 && (state.filter === "all" || Boolean(site[state.filter])));
+      const navVisible = scored.map(({ site }) => site);
+      const visible = scored.filter(({ site }) => state.category === "all" || site.c === state.category);
       renderNav(navVisible);
       renderFilters();
 
@@ -2516,8 +2709,23 @@
         return;
       }
 
+      if (state.query.trim()) {
+        const ranked = visible.sort((left, right) => right.score - left.score || left.index - right.index).map(({ site }) => site);
+        content.innerHTML = `
+          <section class="section" id="search-results">
+            <div class="section-head">
+              <div><h2>搜索结果</h2></div>
+              <p>按与“${escapeHtml(state.query.trim())}”的相似度排列，共 ${ranked.length} 个</p>
+            </div>
+            <div class="cards">${ranked.map(card).join("")}</div>
+          </section>
+        `;
+        requestAnimationFrame(updateDescToggles);
+        return;
+      }
+
       content.innerHTML = categories.map((category) => {
-        const group = visible.filter((site) => site.c === category.id);
+        const group = visible.filter(({ site }) => site.c === category.id).map(({ site }) => site);
         if (!group.length) return "";
         return `
           <section class="section" id="${category.id}">
@@ -2589,6 +2797,15 @@
     }
 
     document.addEventListener("click", (event) => {
+      const collapseButton = event.target.closest("[data-collapse-toggle]");
+      if (collapseButton && document.documentElement.dataset.device === "mobile") {
+        const panel = document.getElementById(collapseButton.dataset.collapseToggle);
+        if (!panel) return;
+        const expanded = panel.classList.toggle("is-expanded");
+        collapseButton.setAttribute("aria-expanded", String(expanded));
+        return;
+      }
+
       const filterButton = event.target.closest("[data-filter]");
       if (filterButton) {
         state.filter = filterButton.dataset.filter;
@@ -2633,13 +2850,35 @@
       searchInput.focus();
     });
 
-    window.addEventListener("resize", () => requestAnimationFrame(updateDescToggles), { passive: true });
-    window.addEventListener("orientationchange", () => requestAnimationFrame(updateDescToggles), { passive: true });
+    function fitMobileTitle() {
+      const title = $("#pageTitle");
+      if (document.documentElement.dataset.device !== "mobile") {
+        title.style.removeProperty("font-size");
+        return;
+      }
+      let size = 32;
+      title.style.fontSize = `${size}px`;
+      while (size > 20 && title.scrollWidth > title.clientWidth) {
+        size -= 1;
+        title.style.fontSize = `${size}px`;
+      }
+    }
+
+    function refreshResponsiveDetails() {
+      requestAnimationFrame(() => {
+        updateDescToggles();
+        fitMobileTitle();
+      });
+    }
+
+    window.addEventListener("resize", refreshResponsiveDetails, { passive: true });
+    window.addEventListener("orientationchange", refreshResponsiveDetails, { passive: true });
 
     renderPageConfig();
     renderDevelopingPages();
     renderStats();
     renderContent();
+    refreshResponsiveDetails();
   </script>
 </body>
 </html>
