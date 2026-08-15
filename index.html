@@ -1664,7 +1664,7 @@
           title: "西交常用网站汇总（本科生）",
           lead: "本站为非官方信息导航项目，与相关学校、学院及书院官方网站不存在隶属关系。 站内名称、标识及外部链接仅用于信息索引，相关权益归原权利人所有。\n\n支持关键词搜索、按类别跳转、WebVPN网址转换等。\n部分可能集成到一网通办的入口，例如出入境服务等，此处没有重复提及。",
           noticeTitle: "访问前先看这里",
-          noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。标有“需统一认证”的站点需要使用统一身份认证账号密码登录；标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
+          noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。\n标有“需统一认证”的站点需要使用统一身份认证账号密码登录；\n标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
           legendItems: [
                 {
                       title: "重点网站",
@@ -1685,7 +1685,7 @@
           ],
           admissionStrip: {
                 enabled: true,
-                kicker: "新生入学提醒",
+                kicker: "",
                 title: "入学前先完成这几件事",
                 items: [
                       "根据录取通知书上的学号注册统一认证账号",
@@ -1704,7 +1704,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-14",
+          lastUpdated: "2026-08-15",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -1713,7 +1713,7 @@
           footerLinks: [
                 {
                       label: "GitHub主页",
-                      url: "https://github.com/fjinzey-ctrl/xjtu-links"
+                      url: "https://github.com/fjinzey-ctrl/xjtu-links/"
                 },
                 {
                       label: "GitHub Pages",
@@ -1735,18 +1735,18 @@
                 },
                 {
                       type: "tag",
-                      tag: "popular",
-                      label: "日常高频"
-                },
-                {
-                      type: "tag",
                       tag: "auth",
-                      label: "需统一认证"
+                      label: "统一认证"
                 },
                 {
                       type: "tag",
                       tag: "library",
                       label: "图书馆"
+                },
+                {
+                      type: "tag",
+                      tag: "campus",
+                      label: "校园网访问"
                 }
           ]
     };
@@ -1825,14 +1825,14 @@
                 hint: "一网通办、财务、网络、宿舍"
           },
           {
-                id: "portal",
-                name: "部门信息公开与门户",
-                hint: "学校及其二级部门信息发布入口"
+                id: "resource",
+                name: "基础资源获取",
+                hint: "教材、数据库、地图、软件、教师主页、档案查询"
           },
           {
-                id: "resource",
-                name: "基础资源获取或查询",
-                hint: "教材、数据库、地图、软件、教师主页、档案查询"
+                id: "portal",
+                name: "通知与信息公示",
+                hint: "学校及其二级部门信息发布入口"
           },
           {
                 id: "external",
@@ -1919,8 +1919,16 @@
                 c: "front",
                 n: "宿舍选择",
                 d: "选宿时会有通知，日常不开放访问权限；钱院等分配制宿舍可在选宿期间通过此站点查看分配结果。",
-                short: "housing2021",
-                protocol: "http",
+                links: [
+                      {
+                            label: "选宿登录",
+                            url: "http://housing.xjtu.edu.cn/dmWeb/"
+                      },
+                      {
+                            label: "操作手册",
+                            url: "http://housing.xjtu.edu.cn/"
+                      }
+                ],
                 auth: true
           },
           {
@@ -2116,45 +2124,6 @@
                 d: "所有与校园用网相关的服务。"
           },
           {
-                c: "portal",
-                n: "教务处",
-                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
-                short: "jwc",
-                popular: true
-          },
-          {
-                c: "portal",
-                n: "实践教学中心",
-                d: "校内实践、竞赛成绩等信息发布。",
-                short: "pec",
-                popular: true
-          },
-          {
-                c: "portal",
-                n: "校团委门户",
-                short: "tuanwei",
-                d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。",
-                auth: true
-          },
-          {
-                c: "portal",
-                n: "校各部门信息公开",
-                d: "全校性质的管理办法等公开查询，以及学校政务、财务信息公开。\n我常用搜索，不然一级一级查找太麻烦。“/zxxxgk.htm”子页面的信息保持更新。",
-                short: "xxgk"
-          },
-          {
-                c: "portal",
-                n: "钱院门户",
-                d: "钱学森学院门户，有关开学选拔、珠峰计划等的拔尖培养信息也会在此发布。",
-                short: "bjb"
-          },
-          {
-                c: "portal",
-                n: "综合信息服务",
-                short: "info",
-                d: "老网站，日常使用较少。"
-          },
-          {
                 c: "resource",
                 n: "课程教材",
                 d: "各类教材电子书开放阅读平台",
@@ -2291,6 +2260,45 @@
                 webvpnLinks: [
                       "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421f1e542942e266d43301083b88d1b26318d57ed88/"
                 ]
+          },
+          {
+                c: "portal",
+                n: "教务处",
+                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
+                short: "jwc",
+                popular: true
+          },
+          {
+                c: "portal",
+                n: "实践教学中心",
+                d: "校内实践、竞赛成绩等信息发布。",
+                short: "pec",
+                popular: true
+          },
+          {
+                c: "portal",
+                n: "校团委门户",
+                short: "tuanwei",
+                d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。",
+                auth: true
+          },
+          {
+                c: "portal",
+                n: "校各部门信息公开",
+                d: "全校性质的管理办法等公开查询，以及学校政务、财务信息公开。\n我常用搜索，不然一级一级查找太麻烦。“/zxxxgk.htm”子页面的信息保持更新。",
+                short: "xxgk"
+          },
+          {
+                c: "portal",
+                n: "钱院门户",
+                d: "钱学森学院门户，有关开学选拔、珠峰计划等的拔尖培养信息也会在此发布。",
+                short: "bjb"
+          },
+          {
+                c: "portal",
+                n: "综合信息服务",
+                short: "info",
+                d: "老网站，日常使用较少。"
           },
           {
                 c: "external",
