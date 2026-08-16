@@ -13,11 +13,11 @@
 
 ### 线上查看
 
-①https://xjtu-links.com/：主站
+①https://xjtu-links.com/ ：主站
 
-②https://xjtu-links.pages.dev/：已配置301，访问时会跳转至.com主站
+②https://xjtu-links.pages.dev/ ：已配置301，访问时会跳转至.com主站
 
-③https://fjinzey-ctrl.github.io/xjtu-links/：已停用此Pages，会返回404
+③https://fjinzey-ctrl.github.io/xjtu-links/ ：已停用此Pages，会返回404
 
 ### 本地预览
 
