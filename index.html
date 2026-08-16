@@ -20,6 +20,7 @@
       --ink: #2d2a26;
       --shadow: 0 18px 48px rgba(50, 35, 24, 0.12);
       --radius: 8px;
+      --side-rail-sticky-top: 145px;
     }
 
     * {
@@ -327,6 +328,7 @@
       padding: 14px;
       margin: 12px auto 18px;
       backdrop-filter: blur(16px);
+      box-shadow: none;
     }
 
     html[data-device="mobile"] .toolbar {
@@ -425,7 +427,7 @@
 
     .side-rail {
       position: sticky;
-      top: 104px;
+      top: var(--side-rail-sticky-top);
       display: grid;
       gap: 12px;
       min-width: 0;
@@ -847,6 +849,226 @@
       white-space: normal;
     }
 
+    .domain-banner {
+      width: 100%;
+      background: var(--ink);
+      color: #f8f1e8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .domain-banner[hidden] {
+      display: none;
+    }
+
+    .domain-banner-inner {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1200px, calc(100% - 32px));
+      min-height: 42px;
+      margin: 0 auto;
+      padding: 6px 0;
+    }
+
+    .domain-banner-message {
+      min-width: 0;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .domain-banner-title {
+      margin-right: 8px;
+      color: #ffd58a;
+      font-weight: 800;
+    }
+
+    .domain-banner-link {
+      color: #ffd58a;
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .domain-banner-controls {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .domain-banner-choice {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      color: #f8f1e8;
+      font-size: 13px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .domain-banner-choice input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: var(--brand);
+    }
+
+    .domain-banner-close {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .domain-banner-close:hover {
+      border-color: #ffd58a;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffd58a;
+    }
+
+    .domain-banner-link:focus-visible,
+    .domain-banner-choice input:focus-visible,
+    .domain-banner-close:focus-visible {
+      outline: 3px solid rgba(255, 213, 138, 0.45);
+      outline-offset: 2px;
+    }
+
+    /* Legacy domain modal, retained for possible future reactivation.
+    body.domain-notice-open {
+      overflow: hidden;
+    }
+
+    .domain-notice-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(34, 31, 31, 0.58);
+    }
+
+    .domain-notice-backdrop[hidden] {
+      display: none;
+    }
+
+    .domain-notice-dialog {
+      width: min(520px, 100%);
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--brand);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 24px 72px rgba(34, 31, 31, 0.28);
+    }
+
+    .domain-notice-eyebrow {
+      margin: 0 0 6px;
+      color: var(--brand-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .domain-notice-dialog h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .domain-notice-dialog p {
+      margin: 0;
+      color: var(--muted);
+      white-space: pre-line;
+    }
+
+    .domain-notice-url {
+      display: block;
+      margin: 16px 0;
+      padding: 10px 12px;
+      overflow-wrap: anywhere;
+      border-left: 4px solid var(--blue);
+      border-radius: 4px;
+      background: #edf5ff;
+      color: var(--blue);
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .domain-notice-choice {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: fit-content;
+      margin: 4px 0 18px;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .domain-notice-choice input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--brand);
+    }
+
+    .domain-notice-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: 10px;
+    }
+
+    .domain-notice-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .domain-notice-button.primary {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .domain-notice-button:hover {
+      border-color: #cfc3b7;
+      background: #f8f4ef;
+    }
+
+    .domain-notice-button.primary:hover {
+      border-color: var(--brand-dark);
+      background: var(--brand-dark);
+    }
+
+    .domain-notice-button:focus-visible,
+    .domain-notice-choice input:focus-visible {
+      outline: 3px solid rgba(37, 99, 168, 0.3);
+      outline-offset: 2px;
+    }
+    */
+
     .toast {
       position: fixed;
       left: 50%;
@@ -1071,6 +1293,58 @@
       .site-footer {
         padding-bottom: calc(18px + env(safe-area-inset-bottom));
       }
+
+      .domain-banner-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 3px 10px;
+        align-items: center;
+        width: auto;
+        margin: 0 14px;
+        padding: 8px 0;
+      }
+
+      .domain-banner-message {
+        grid-column: 1 / -1;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .domain-banner-title {
+        display: inline;
+        margin: 0 6px 0 0;
+      }
+
+      .domain-banner-controls {
+        grid-column: 1 / -1;
+        gap: 8px;
+        justify-self: end;
+      }
+
+      .domain-banner-choice {
+        font-size: 12px;
+      }
+
+      /* Legacy domain modal mobile styles.
+      .domain-notice-backdrop {
+        align-items: end;
+        padding: 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
+      }
+
+      .domain-notice-dialog {
+        max-height: calc(100vh - 32px - env(safe-area-inset-bottom));
+        padding: 20px 18px;
+      }
+
+      .domain-notice-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .domain-notice-button.primary {
+        grid-row: 1;
+      }
+      */
     }
 
     @media (max-width: 390px) {
@@ -1570,6 +1844,24 @@
   </script>
 </head>
 <body>
+  <aside class="domain-banner" id="domainBanner" aria-label="网址更新提醒" hidden>
+    <div class="domain-banner-inner">
+      <p class="domain-banner-message">
+        <strong class="domain-banner-title" id="domainBannerTitle">网址更新</strong>
+        <span id="domainBannerPrefix">本站网址已全面迁移至</span>
+        <a class="domain-banner-link" id="domainBannerLink" href="https://xjtu-links.com/">xjtu-links.com</a>
+        <span id="domainBannerSuffix">；原 xjtu-links.pages.dev 会自动跳转。</span>
+      </p>
+      <div class="domain-banner-controls">
+        <label class="domain-banner-choice">
+          <input id="domainBannerDismiss" type="checkbox">
+          <span id="domainBannerCheckboxLabel">下次不再提醒</span>
+        </label>
+        <button class="domain-banner-close" id="domainBannerClose" type="button" aria-label="关闭网址提醒" title="关闭">×</button>
+      </div>
+    </div>
+  </aside>
+
   <header class="hero shell">
     <div class="hero-grid">
       <section class="hero-main">
@@ -1656,6 +1948,25 @@
 
   <footer class="site-footer" id="siteFooter">维护者：润铎</footer>
 
+  <!-- Legacy domain modal, retained for possible future reactivation.
+  <div class="domain-notice-backdrop" id="domainNoticeModal" hidden>
+    <section class="domain-notice-dialog" role="dialog" aria-modal="true" aria-labelledby="domainNoticeTitle" aria-describedby="domainNoticeMessage">
+      <p class="domain-notice-eyebrow">访问地址更新</p>
+      <h2 id="domainNoticeTitle">推荐使用新网址访问</h2>
+      <p id="domainNoticeMessage"></p>
+      <a class="domain-notice-url" id="domainNoticeUrl" href="https://xjtu-links.com/">https://xjtu-links.com/</a>
+      <label class="domain-notice-choice">
+        <input id="domainNoticeDismiss" type="checkbox">
+        <span id="domainNoticeCheckboxLabel">下次不再提醒</span>
+      </label>
+      <div class="domain-notice-actions">
+        <button class="domain-notice-button" id="domainNoticeContinue" type="button">暂时继续访问</button>
+        <a class="domain-notice-button primary" id="domainNoticeVisit" href="https://xjtu-links.com/">访问 xjtu-links.com</a>
+      </div>
+    </section>
+  </div>
+  -->
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -1665,6 +1976,17 @@
           lead: "本站为非官方信息导航项目，与相关学校、学院及书院官方网站不存在隶属关系。 站内名称、标识及外部链接仅用于信息索引，相关权益归原权利人所有。\n\n支持关键词搜索、按类别跳转、WebVPN网址转换等。\n部分可能集成到一网通办的入口，例如出入境服务等，此处没有重复提及。",
           noticeTitle: "访问前先看这里",
           noticeText: "未写完整域名的校内站点默认补全为 .xjtu.edu.cn。\n标有“需统一认证”的站点需要使用统一身份认证账号密码登录；\n标有“校园网/VPN”的站点通常需要连接校园网或通过 VPN 访问。",
+          domainBanner: {
+                enabled: true,
+                title: "网址更新",
+                prefix: "本站网址已全面迁移至",
+                targetUrl: "https://xjtu-links.com/",
+                linkLabel: "xjtu-links.com",
+                suffix: "；原 xjtu-links.pages.dev 会自动跳转。",
+                checkboxLabel: "下次不再提醒",
+                closeLabel: "关闭网址提醒",
+                storageKey: "xjtu-links-domain-banner-v1"
+          },
           legendItems: [
                 {
                       title: "重点网站",
@@ -1704,24 +2026,16 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-15",
+          lastUpdated: "2026-08-17",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
           },
-          footerText: "开发维护：润铎/fjinze@stu.xjtu.edu.cn",
+          footerText: "开发维护：润铎/fjinze@stu.xjtu.edu.cn | 欢迎发issue或邮件",
           footerLinks: [
                 {
                       label: "GitHub主页",
                       url: "https://github.com/fjinzey-ctrl/xjtu-links/"
-                },
-                {
-                      label: "GitHub Pages",
-                      url: "https://fjinzey-ctrl.github.io/xjtu-links/"
-                },
-                {
-                      label: "CloudFlare Pages",
-                      url: "https://xjtu-links.pages.dev/"
                 },
                 {
                       label: "问题反馈",
@@ -2664,6 +2978,112 @@
       document.title = pageConfig.title || document.title;
     }
 
+    /* Legacy domain modal, retained for possible future reactivation.
+    function initDomainNotice() {
+      const config = pageConfig.domainNotice || {};
+      const modal = $("#domainNoticeModal");
+      if (!modal || config.enabled === false) return;
+
+      let target;
+      try {
+        target = new URL(config.targetUrl || "https://xjtu-links.com/", window.location.href);
+      } catch (error) {
+        return;
+      }
+
+      const currentHost = window.location.hostname.toLowerCase();
+      const targetHost = target.hostname.toLowerCase();
+      if (currentHost === targetHost || currentHost.endsWith(`.${targetHost}`)) return;
+
+      const storageKey = config.storageKey || "xjtu-links-domain-notice-v1";
+      try {
+        if (window.localStorage.getItem(storageKey) === "dismissed") return;
+      } catch (error) {
+        // The reminder still works when a privacy mode blocks local storage.
+      }
+
+      $("#domainNoticeTitle").textContent = config.title || "推荐使用新网址访问";
+      $("#domainNoticeMessage").textContent = config.message || "";
+      $("#domainNoticeUrl").href = target.href;
+      $("#domainNoticeUrl").textContent = target.href;
+      $("#domainNoticeVisit").href = target.href;
+      $("#domainNoticeVisit").textContent = config.primaryLabel || "访问 xjtu-links.com";
+      $("#domainNoticeContinue").textContent = config.secondaryLabel || "暂时继续访问";
+      $("#domainNoticeCheckboxLabel").textContent = config.checkboxLabel || "下次不再提醒";
+
+      let previouslyFocused = document.activeElement;
+      const rememberChoice = () => {
+        if (!$("#domainNoticeDismiss").checked) return;
+        try {
+          window.localStorage.setItem(storageKey, "dismissed");
+        } catch (error) {
+          // Closing the notice should not depend on storage availability.
+        }
+      };
+      const closeNotice = () => {
+        rememberChoice();
+        modal.hidden = true;
+        document.body.classList.remove("domain-notice-open");
+        previouslyFocused?.focus?.();
+      };
+
+      $("#domainNoticeContinue").addEventListener("click", closeNotice);
+      $("#domainNoticeUrl").addEventListener("click", rememberChoice);
+      $("#domainNoticeVisit").addEventListener("click", rememberChoice);
+      modal.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeNotice();
+      });
+      modal.hidden = false;
+      document.body.classList.add("domain-notice-open");
+      $("#domainNoticeVisit").focus();
+    }
+    */
+
+    function initDomainBanner() {
+      const config = pageConfig.domainBanner || {};
+      const banner = $("#domainBanner");
+      if (!banner || config.enabled === false) return;
+
+      const storageKey = config.storageKey || "xjtu-links-domain-banner-v1";
+      try {
+        if (window.localStorage.getItem(storageKey) === "dismissed") return;
+      } catch (error) {
+        // The reminder still works when a privacy mode blocks local storage.
+      }
+
+      let target;
+      try {
+        target = new URL(config.targetUrl || "https://xjtu-links.com/", window.location.href);
+      } catch (error) {
+        target = new URL("https://xjtu-links.com/");
+      }
+
+      $("#domainBannerTitle").textContent = config.title || "网址更新";
+      $("#domainBannerPrefix").textContent = config.prefix || "本站网址已全面迁移至";
+      $("#domainBannerLink").href = target.href;
+      $("#domainBannerLink").textContent = config.linkLabel || target.hostname;
+      $("#domainBannerSuffix").textContent = config.suffix || "";
+      $("#domainBannerCheckboxLabel").textContent = config.checkboxLabel || "下次不再提醒";
+      $("#domainBannerClose").setAttribute("aria-label", config.closeLabel || "关闭网址提醒");
+
+      const rememberChoice = () => {
+        if (!$("#domainBannerDismiss").checked) return;
+        try {
+          window.localStorage.setItem(storageKey, "dismissed");
+        } catch (error) {
+          // Closing the banner should not depend on storage availability.
+        }
+      };
+      const closeBanner = () => {
+        rememberChoice();
+        banner.hidden = true;
+      };
+
+      $("#domainBannerLink").addEventListener("click", rememberChoice);
+      $("#domainBannerClose").addEventListener("click", closeBanner);
+      banner.hidden = false;
+    }
+
     function renderDevelopingPages() {
       const panel = $("#developingPanel");
       const list = $("#developingPages");
@@ -2872,17 +3292,33 @@
       }
     }
 
+    function updateStickyOffsets() {
+      const toolbar = document.querySelector(".toolbar");
+      if (!toolbar || window.getComputedStyle(toolbar).position !== "sticky") {
+        document.documentElement.style.removeProperty("--side-rail-sticky-top");
+        return;
+      }
+      const toolbarHeight = Math.ceil(toolbar.getBoundingClientRect().height);
+      document.documentElement.style.setProperty("--side-rail-sticky-top", `${toolbarHeight + 12}px`);
+    }
+
     function refreshResponsiveDetails() {
       requestAnimationFrame(() => {
         updateDescToggles();
         fitMobileTitle();
+        updateStickyOffsets();
       });
     }
 
     window.addEventListener("resize", refreshResponsiveDetails, { passive: true });
     window.addEventListener("orientationchange", refreshResponsiveDetails, { passive: true });
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(updateStickyOffsets).observe(document.querySelector(".toolbar"));
+    }
 
     renderPageConfig();
+    // initDomainNotice(); // Legacy modal; restore only if a blocking notice is needed again.
+    initDomainBanner();
     renderDevelopingPages();
     renderStats();
     renderContent();
