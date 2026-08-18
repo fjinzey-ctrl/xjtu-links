@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>西交常用网站汇总</title>
+  <link rel="icon" href="assets/xjtu-links-icon.svg" type="image/svg+xml">
   <style>
     :root {
       color-scheme: light;
@@ -1162,6 +1163,14 @@
         background: var(--bg);
       }
 
+      .domain-banner {
+        width: auto;
+        margin: 10px 18px 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: var(--radius);
+      }
+
       .shell {
         width: auto !important;
         max-width: none !important;
@@ -1300,8 +1309,8 @@
         gap: 3px 10px;
         align-items: center;
         width: auto;
-        margin: 0 14px;
-        padding: 8px 0;
+        margin: 0;
+        padding: 8px 12px;
       }
 
       .domain-banner-message {
@@ -1928,12 +1937,9 @@
         <time class="updated-time" id="updatedTime"></time>
       </section>
 
-      <section class="developing-panel mobile-collapsible" id="developingPanel" aria-label="开发中页面">
-        <button class="mobile-collapse-toggle" type="button" data-collapse-toggle="developingPanel" aria-expanded="false">
-          <h2>开发中</h2>
-          <span class="collapse-indicator" aria-hidden="true">+</span>
-        </button>
-        <div class="developing-list collapsible-body" id="developingPages"></div>
+      <section class="developing-panel" id="developingPanel" aria-label="友情链接">
+        <h2>友情链接</h2>
+        <div class="developing-list" id="developingPages"></div>
       </section>
     </aside>
 
@@ -2007,8 +2013,8 @@
           ],
           admissionStrip: {
                 enabled: true,
-                kicker: "",
-                title: "入学前先完成这几件事",
+                kicker: "入学前先完成这几件事",
+                title: "",
                 items: [
                       "根据录取通知书上的学号注册统一认证账号",
                       "下载移动交通大学",
@@ -2026,7 +2032,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-17",
+          lastUpdated: "2026-08-18",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -2134,6 +2140,11 @@
                 hint: "课程平台、教务查询、图书馆预约"
           },
           {
+                id: "practice",
+                name: "科创实践相关",
+                hint: "社会实践、大创平台等"
+          },
+          {
                 id: "service",
                 name: "基础服务办理",
                 hint: "一网通办、财务、网络、宿舍"
@@ -2162,10 +2173,10 @@
 
     const developingPages = [
           {
-                title: "XJTU College",
-                status: "完善中",
-                description: "书院、学院与公众号信息速查页，现阶段持续补齐内容与交互。",
-                url: "./college/index.html"
+                title: "合成大西交",
+                status: "内测中",
+                description: "学生自制小游戏，尚未购买域名，故而打开会是一个服务器地址。",
+                url: "http://47.99.48.177:3000/index.html"
           }
     ];
 
@@ -2368,29 +2379,6 @@
           },
           {
                 c: "study",
-                n: "本科生毕业设计智能管理平台",
-                d: "用于接收主修或辅修专业毕设工作消息，下载相关规定与模板。",
-                u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh",
-                campus: true,
-                important: true,
-                webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e0e352d23f3a7c45300d8db9d6562d/xajtdx_lw_zh"
-                ]
-          },
-          {
-                c: "study",
-                n: "大创管理平台",
-                d: "大学生创新创业训练计划管理系统。",
-                u: "https://pts.xjtu.edu.cn/cxcy",
-                campus: true,
-                auth: true,
-                important: true,
-                webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e0e352d23f3a7c45300d8db9d6562d/cxcy"
-                ]
-          },
-          {
-                c: "study",
                 n: "图书馆门户",
                 short: "lib",
                 d: "图书馆相关功能网站的跳转入口。",
@@ -2405,6 +2393,50 @@
                 n: "思源学堂门户",
                 d: "用处不大。导航到学校学习资源平台或学校在各学习平台的 SPOC 站点，其实用处不大",
                 short: "syxt"
+          },
+          {
+                c: "practice",
+                n: "校园大使活动管理平台",
+                d: "招生办寒假期间举办校园大使实践活动，参与该活动与参与寒假返乡实践一样获得思想政治教育学分。",
+                u: "https://zswxxcx.xjtu.edu.cn/public/hjxc/student/",
+                auth: true
+          },
+          {
+                c: "practice",
+                n: "社会实践管理平台",
+                d: "寒假返家乡实践，暑期三下乡社会实践，活动立项与管理平台",
+                u: "https://shijian.tiaozhan.com/",
+                auth: true
+          },
+          {
+                c: "practice",
+                n: "大创管理平台",
+                d: "大学生创新创业训练计划管理系统。",
+                u: "https://pts.xjtu.edu.cn/cxcy",
+                campus: true,
+                auth: true,
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e0e352d23f3a7c45300d8db9d6562d/cxcy"
+                ]
+          },
+          {
+                c: "practice",
+                n: "实践教学中心门户",
+                d: "校内实践、竞赛成绩等信息发布。",
+                short: "pec",
+                popular: true
+          },
+          {
+                c: "practice",
+                n: "本科生毕业设计智能管理平台",
+                d: "用于接收主修或辅修专业毕设工作消息，下载相关规定与模板。",
+                u: "https://pts.xjtu.edu.cn/xajtdx_lw_zh",
+                campus: true,
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e0e352d23f3a7c45300d8db9d6562d/xajtdx_lw_zh"
+                ]
           },
           {
                 c: "service",
@@ -2425,7 +2457,7 @@
           {
                 c: "service",
                 n: "学生成长支持系统",
-                d: "假期去向登记、新生课、实验室安全培训与心理普测。",
+                d: "假期去向登记、新生养成教育、实验室安全培训、心理普测、课外8学分等。",
                 short: "ss",
                 popular: true,
                 auth: true,
@@ -2492,8 +2524,8 @@
           },
           {
                 c: "resource",
-                n: "WPS 365",
-                d: "白嫖学校的WPS 365账号，相关可见https://mp.weixin.qq.com/s/KXTE5tZdE834aVczZDWpLw",
+                n: "WPS 365企业认证",
+                d: "寒暑期社会实践材料提交渠道。\n白嫖学校的WPS 365账号，相关可见https://mp.weixin.qq.com/s/KXTE5tZdE834aVczZDWpLw",
                 links: [
                       {
                             label: "wps",
@@ -2523,7 +2555,7 @@
           {
                 c: "resource",
                 n: "学校地图",
-                d: "第一个入口是药学院发布的校园地图。\n第二个入口是学校视觉形象识别系统内的地图集锦，130 校庆期间完善。",
+                d: "第一个入口是药学院发布的旧版校园地图。\n第二个入口是学校视觉形象识别系统内的地图集锦，130 校庆期间完善的新版。",
                 links: [
                       {
                             label: "野图",
@@ -2538,8 +2570,8 @@
           {
                 c: "resource",
                 n: "视觉形象识别系统",
-                short: "vi",
                 d: "校徽、校名、各类标识高清图片与 PPT 模板。",
+                short: "vi",
                 popular: true
           },
           {
@@ -2584,13 +2616,6 @@
           },
           {
                 c: "portal",
-                n: "实践教学中心",
-                d: "校内实践、竞赛成绩等信息发布。",
-                short: "pec",
-                popular: true
-          },
-          {
-                c: "portal",
                 n: "校团委门户",
                 short: "tuanwei",
                 d: "校内活动场地预约；非学生组织或社团预约通过率可能较低。",
@@ -2598,7 +2623,7 @@
           },
           {
                 c: "portal",
-                n: "校各部门信息公开",
+                n: "信息公开",
                 d: "全校性质的管理办法等公开查询，以及学校政务、财务信息公开。\n我常用搜索，不然一级一级查找太麻烦。“/zxxxgk.htm”子页面的信息保持更新。",
                 short: "xxgk"
           },
@@ -3090,10 +3115,10 @@
       const pages = (developingPages || []).filter((page) => page && page.title && page.url);
       panel.hidden = !pages.length;
       list.innerHTML = pages.map((page) => `
-        <a class="developing-link" href="${escapeHtml(page.url)}">
+        <a class="developing-link" href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">
           <span class="developing-top">
             <strong>${escapeHtml(page.title)}</strong>
-            <em>${escapeHtml(page.status || "开发中")}</em>
+            <em>${escapeHtml(page.status || "友情链接")}</em>
           </span>
           ${page.description ? `<span class="developing-desc">${escapeHtml(page.description)}</span>` : ""}
         </a>

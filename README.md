@@ -7,7 +7,8 @@
 ## 页面
 
 - `index.html`：西交常用网站汇总，支持关键词搜索、分类和标签筛选、短域名展示、完整网址复制，以及内网 WebVPN 快捷访问入口。
-- `college/index.html`：学院、学部、书院及其公开信息的整理页，此部分仍在开发，所以里面的文字内容只是做了非常粗糙的整理。
+- （暂时移除）`college/index.html`：学院、学部、书院及其公开信息的整理页，此部分仍在开发，所以里面的文字内容只是做了非常粗糙的整理。
+- 添加了“合成大西交”游戏的友情链接。
 
 ## 使用方式
 
@@ -21,7 +22,7 @@
 
 ### 本地预览
 
-下载当前commit所有文件并解压后，直接打开 `index.html`。
+下载当前Commit所有文件并解压后，直接打开 `index.html`。
 
 为获得与线上更接近的路径行为，也可以在本目录启动任意静态文件服务器，例如：
 
@@ -48,6 +49,7 @@ python -m http.server 8000
 ## 致谢
 
 - [ESWZY/webvpn-dlut](https://github.com/ESWZY/webvpn-dlut)：WebVPN 地址转换原理与参考实现。
+- [🕳️🕳️](mailto:neixianggonh@gmail.com)同学制作的“合成大西交”游戏。
 - [XJTUToolBox](https://github.com/yan-xiaoo/XJTUToolBox)：西交 WebVPN 参数与校园工具项目组织方式参考。
 - Cloudflare Pages：提供静态托管服务。
 
