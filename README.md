@@ -50,6 +50,7 @@ python -m http.server 8000
 
 - [ESWZY/webvpn-dlut](https://github.com/ESWZY/webvpn-dlut)：WebVPN 地址转换原理与参考实现。
 - [🕳️🕳️](mailto:neixianggonh@gmail.com)同学制作的“合成大西交”游戏。
+- [Hanseason](mailto:hanseason652@gmail.com)同学牵头制作的“钱班新生指南”
 - [XJTUToolBox](https://github.com/yan-xiaoo/XJTUToolBox)：西交 WebVPN 参数与校园工具项目组织方式参考。
 - Cloudflare Pages：提供静态托管服务。
 
