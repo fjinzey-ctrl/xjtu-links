@@ -431,7 +431,15 @@
       top: var(--side-rail-sticky-top);
       display: grid;
       gap: 12px;
+      max-height: calc(100vh - var(--side-rail-sticky-top) - 18px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
       min-width: 0;
+    }
+
+    .side-rail::-webkit-scrollbar {
+      display: none;
     }
 
     .category-nav {
@@ -1129,6 +1137,9 @@
 
       .side-rail {
         position: static;
+        max-height: none;
+        overflow: visible;
+        overscroll-behavior: auto;
       }
 
       .category-nav .nav-list {
@@ -2032,7 +2043,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-18",
+          lastUpdated: "2026-08-28",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -2177,6 +2188,12 @@
                 status: "内测中",
                 description: "学生自制小游戏，尚未购买域名，故而打开会是一个服务器地址。",
                 url: "http://47.99.48.177/"
+          },
+          {
+                title: "钱班入学指南",
+                status: "开放中",
+                description: "学生自整理的钱学森学(书)院的相关文件（含入学选拔），供新生参考",
+                url: "https://qian-guide.com/"
           }
     ];
 
