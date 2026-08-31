@@ -2043,7 +2043,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-29",
+          lastUpdated: "2026-08-31",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -2366,14 +2366,14 @@
           {
                 c: "study",
                 n: "图书馆座位预约",
-                short: "rq.lib",
                 d: "图书馆座位预约，最好使用移交或手机端网页。",
+                u: "http://rg.lib.xjtu.edu.cn:8086/",
                 campus: true,
+                library: true,
                 auth: true,
                 important: true,
-                library: true,
                 webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e2e60f902e322648741c9ce29d51367bb80f/"
+                      "https://webvpn.xjtu.edu.cn/http-8086/77726476706e69737468656265737421e2f00f902e322648741c9ce29d51367bae38/"
                 ]
           },
           {
@@ -2404,12 +2404,22 @@
           {
                 c: "study",
                 n: "图书馆门户",
-                short: "lib",
                 d: "图书馆相关功能网站的跳转入口。",
+                links: [
+                      {
+                            label: "对外门户",
+                            url: "https://www.lib.xjtu.edu.cn"
+                      },
+                      {
+                            label: "校内身份",
+                            url: "https://us-custom.lib.xjtu.edu.cn/"
+                      }
+                ],
                 campus: true,
                 library: true,
                 webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fcfe43d23f3a7c45300d8db9d6562d/"
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e7e056d22b396a1e66029db9d6502720b439c3/",
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e5e40c9f32237c5f734685a59a1b3b3f4f9329fb50c251bce7/"
                 ]
           },
           {
@@ -2524,6 +2534,25 @@
           },
           {
                 c: "resource",
+                n: "思源发现",
+                d: "图书馆资源获取综合平台，数据库、电子期刊、电子图书等",
+                links: [
+                      {
+                            label: "很长的网址",
+                            url: "https://xjtu.primo.exlibrisgroup.com.cn/nde/home?vid=86XJU_INST:XJTU&lang=zh"
+                      }
+                ],
+                popular: true,
+                campus: true,
+                library: true,
+                auth: true,
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e8fd558969207a597307c7a980592a37de39056761055cf958441054da8720/nde/home?vid=86XJU_INST:XJTU&lang=zh"
+                ]
+          },
+          {
+                c: "resource",
                 n: "课程教材",
                 d: "各类教材电子书开放阅读平台",
                 short: "jiaocai.lib",
@@ -2538,7 +2567,7 @@
           {
                 c: "resource",
                 n: "图书馆数据库导航",
-                d: "交大已购权限的文献与技术数据库查询和跳转入口；部分数据库如 CAS-SciFinder 等可能有另外的注册指引，需从图书馆官方信息中检索查找。",
+                d: "交大已购权限的文献与技术数据库查询和跳转入口；部分数据库如 CAS-SciFinder 等可能有另外的注册指引，需从图书馆官方信息中检索查找。\n打开后如果停止加载并白屏就刷新一下页面。",
                 short: "stat.lib",
                 popular: true,
                 campus: true,
@@ -2551,15 +2580,20 @@
           },
           {
                 c: "resource",
-                n: "馆提存典藏预约",
-                short: "innopac.lib",
-                d: "提存书库、典藏书库图书预约，建议从移交或手机端操作。",
+                n: "学院专题资源门户",
+                d: "部分学院在图书馆资源导航。",
+                links: [
+                      {
+                            label: "很长的网址",
+                            url: "https://www.lib.xjtu.edu.cn/engine2/general/6897646/detail?engineInstanceId=56875&typeId=1603944&pageId=34094&websiteId=27676&currentBranch=0"
+                      }
+                ],
                 campus: true,
+                library: true,
                 auth: true,
                 important: true,
-                library: true,
                 webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421f9f94f9337316b1e72018be2805f372054d5c12423ad05/"
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421e7e056d22b396a1e66029db9d6502720b439c3/engine2/general/6897646/detail?engineInstanceId=56875&typeId=1603944&pageId=34094&websiteId=27676&currentBranch=0"
                 ]
           },
           {
@@ -2663,8 +2697,21 @@
           {
                 c: "portal",
                 n: "教务处",
-                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。",
-                short: "jwc",
+                d: "选课通知、教学通知、大规模重大考试（四六级、计算机等级等）通知。\n不知道为什么教务处搞了三个域名，三个域名最后会指向完全相同的主页。",
+                links: [
+                      {
+                            label: "jwc",
+                            url: "https://jwc.xjtu.edu.cn"
+                      },
+                      {
+                            label: "dean",
+                            url: "https://dean.xjtu.edu.cn/"
+                      },
+                      {
+                            label: "due",
+                            url: "https://due.xjtu.edu.cn/"
+                      }
+                ],
                 popular: true
           },
           {
@@ -2702,8 +2749,8 @@
           {
                 c: "external",
                 n: "长江雨课堂 SPOC",
-                u: "https://cjxjtu.yuketang.cn",
                 d: "长江雨课堂西交 SPOC 入口。",
+                u: "https://cjxjtu.yuketang.cn",
                 external: true
           },
           {
@@ -2716,8 +2763,8 @@
           {
                 c: "external",
                 n: "四六级",
-                u: "https://cet-bm.neea.edu.cn",
                 d: "全国大学英语四、六级考试报名入口。",
+                u: "https://cet-bm.neea.edu.cn",
                 external: true
           },
           {
