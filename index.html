@@ -858,6 +858,23 @@
       white-space: normal;
     }
 
+    .footer-visits {
+      width: fit-content;
+      margin: 12px auto 0;
+      padding-top: 9px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e8ddcf;
+      font-size: 13px;
+      white-space: normal;
+    }
+
+    .footer-visits strong {
+      margin: 0 4px;
+      color: #ffd58a;
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+    }
+
     .domain-banner {
       width: 100%;
       background: var(--ink);
@@ -2043,7 +2060,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-08-31",
+          lastUpdated: "2026-09-08",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -2059,6 +2076,11 @@
                       url: "mailto:fjinze@stu.xjtu.edu.cn"
                 }
           ],
+          visitCounter: {
+                enabled: true,
+                endpoint: "/api/visits",
+                cacheMinutes: 60
+          },
           stats: [
                 {
                       type: "total",
@@ -3099,8 +3121,66 @@
       const currentYear = new Date().getFullYear();
       const yearText = currentYear > startYear ? `${startYear}-${currentYear}` : String(startYear);
       const copyrightText = `Copyright ©${yearText} ${copyright.holder || "Jinze"}, All Rights Reserved.`;
-      $("#siteFooter").innerHTML = `<div class="footer-copyright">${escapeHtml(copyrightText)}</div>${footerText}${footerLinks ? `<div class="footer-links">${footerLinks}</div>` : ""}`;
+      const visitCounter = pageConfig.visitCounter || {};
+      const visitCounterHtml = visitCounter.enabled !== false
+        ? `<div class="footer-visits" id="visitCounter" title="统计口径：Cloudflare Visits；数据加载中">本站浏览量达<strong id="visitCounterValue">--</strong>次</div>`
+        : "";
+      $("#siteFooter").innerHTML = `<div class="footer-copyright">${escapeHtml(copyrightText)}</div>${footerText}${footerLinks ? `<div class="footer-links">${footerLinks}</div>` : ""}${visitCounterHtml}`;
       document.title = pageConfig.title || document.title;
+    }
+
+    function initVisitCounter() {
+      const config = pageConfig.visitCounter || {};
+      const counter = $("#visitCounter");
+      const value = $("#visitCounterValue");
+      if (config.enabled === false || !counter || !value || !config.endpoint) return;
+
+      const cacheKey = "xjtu-links-visit-counter-v1";
+      const cacheMinutes = Math.max(5, Number(config.cacheMinutes) || 60);
+      const formatter = new Intl.NumberFormat("zh-CN");
+
+      const applyResult = (data) => {
+        const total = Number(data?.total);
+        if (!Number.isFinite(total) || total < 0) return false;
+        value.textContent = formatter.format(Math.round(total));
+        const through = typeof data.dataThrough === "string" ? data.dataThrough : "";
+        counter.title = through
+          ? `统计口径：Cloudflare Visits；数据已同步至 ${through}`
+          : "统计口径：Cloudflare Visits；数据每日更新";
+        return true;
+      };
+
+      try {
+        const cached = JSON.parse(window.localStorage.getItem(cacheKey) || "null");
+        if (cached && Date.now() - Number(cached.cachedAt) < cacheMinutes * 60 * 1000 && applyResult(cached)) {
+          return;
+        }
+      } catch (error) {
+        // Storage may be unavailable in privacy modes; the network fallback still works.
+      }
+
+      fetch(config.endpoint, {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        credentials: "same-origin",
+        cache: "no-store"
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error(`Visit counter request failed: ${response.status}`);
+          return response.json();
+        })
+        .then((data) => {
+          if (!applyResult(data)) throw new Error("Visit counter response is invalid.");
+          try {
+            window.localStorage.setItem(cacheKey, JSON.stringify({ ...data, cachedAt: Date.now() }));
+          } catch (error) {
+            // A failed cache write should never hide an otherwise valid counter result.
+          }
+        })
+        .catch(() => {
+          value.textContent = "--";
+          counter.title = "统计口径：Cloudflare Visits；数据暂不可用";
+        });
     }
 
     /* Legacy domain modal, retained for possible future reactivation.
@@ -3442,6 +3522,7 @@
     }
 
     renderPageConfig();
+    initVisitCounter();
     // initDomainNotice(); // Legacy modal; restore only if a blocking notice is needed again.
     initDomainBanner();
     renderDevelopingPages();

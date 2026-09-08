@@ -1,0 +1,11 @@
+# Copy this file to wrangler.toml only in your own local checkout, then replace
+# the placeholder values. The real production config is intentionally untracked.
+name = "your-pages-project"
+compatibility_date = "2026-06-05"
+pages_build_output_dir = "."
+send_metrics = false
+
+[[d1_databases]]
+binding = "VISITS_DB"
+database_name = "your-d1-database"
+database_id = "replace-with-your-d1-database-id"
