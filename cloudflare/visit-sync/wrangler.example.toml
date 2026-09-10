@@ -1,0 +1,28 @@
+# Copy this file to wrangler.toml in your own checkout and replace placeholders.
+# Never commit the real API token or production resource identifiers.
+name = "your-visits-sync-worker"
+main = "worker.js"
+compatibility_date = "2026-09-07"
+workers_dev = false
+send_metrics = false
+
+[secrets]
+required = ["CLOUDFLARE_ANALYTICS_TOKEN"]
+
+[triggers]
+crons = ["15 18 * * *"]
+
+[vars]
+CLOUDFLARE_ZONE_ID = "replace-with-your-zone-id"
+PUBLIC_HOSTNAME = "example.com"
+SYNC_START_DATE = "2026-01-01"
+
+[[d1_databases]]
+binding = "VISITS_DB"
+database_name = "your-d1-database"
+database_id = "replace-with-your-d1-database-id"
+migrations_dir = "../../migrations"
+
+[[analytics_engine_datasets]]
+binding = "VISIT_SYNC_ANALYTICS"
+dataset = "your_visit_sync_dataset"

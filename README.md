@@ -1,21 +1,17 @@
 # XJTU-Links
 
-一个面向西安交通大学学生的信息导航项目，将常用网站、校园服务入口，以及学院和书院的公开信息整理在同一发布目录中。页面主体采用静态资源，页脚浏览量由一个只读 Pages API 提供。
+一个面向西安交通大学学生的信息导航项目，将常用网站、校园服务入口，以及学院和书院的公开信息整理在同一发布目录中。页面主体采用静态资源，页脚浏览量由只读 Pages API 和定时统计 Worker 共同提供。
 
 > 本项目由学生独立维护，并非西安交通大学官方网站。内容可能存在遗漏或错误，请以相关单位最新官方信息为准。
 
 ## 页面
 
 - `index.html`：西交常用网站汇总，支持关键词搜索、分类和标签筛选、短域名展示、完整网址复制，以及内网 WebVPN 快捷访问入口。
-- `_worker.js`：只处理 `/api/visits`，从 D1 返回已经汇总好的 Cloudflare Visits；不在访问请求中实时查询 Cloudflare Analytics。
-- `_routes.json`：将 Worker 调用限制在 `/api/*`，普通页面和静态资源不进入 Pages Function。
-- `_headers`：为静态页面设置内容安全策略、禁止嵌入和最小权限浏览器策略。
 - `404.html`：让不存在的路径明确返回 404，避免把首页误作敏感文件的成功响应。
 - `assets/`：客户端图片和图标资源。
-- `wrangler.example.toml`：供复用项目结构时参考的脱敏配置，不包含生产资源编号。
 - `SECURITY.md`：安全问题的非公开报告方式和仓库安全边界。
 - （暂时移除）`college/index.html`：学院、学部、书院及其公开信息的整理页，此部分仍在开发，所以里面的文字内容只是做了非常粗糙的整理。
-- 添加了“合成大西交”游戏的友情链接。
+- 添加了“合成大西交”游戏和“钱班入学指南”资料站的友情链接。
 
 ## 使用方式
 
@@ -45,7 +41,23 @@ python -m http.server 8000
 
 Cloudflare Pages 的拖拽上传仍然可用，但必须上传本目录整体，不能只把 `index.html` 作为一次完整部署。至少应保留 `index.html`、`assets/`、`_worker.js`、`_routes.json` 和 `_headers`；Cloudflare Dashboard 中的 `VISITS_DB` 绑定无需每次重建。
 
+拖拽本目录只会更新 Pages 网站和只读 API，不会创建或重建独立的定时统计 Worker。已有的统计 Worker 会继续运行；首次部署或 Fork 本项目时，需要按下一节单独配置一次。
+
 生产环境使用的真实 `wrangler.toml`、Wrangler 缓存和 Secret 不属于本公开仓库。仓库只提供脱敏的 `wrangler.example.toml`，Fork 使用者需要配置自己的 Pages 项目和 D1 数据库。
+
+## 浏览量统计部署
+
+统计链路为：Cloudflare GraphQL Visits → 定时 Worker → D1 → Pages `_worker.js` → 页面底部。它按 Asia/Shanghai 自然日保存每日 Visits，同一日期使用 UPSERT，重复运行不会重复累加；每次还会补齐最早的缺失日期并复核最近三天。
+
+首次复用时：
+
+1. 创建 D1 数据库，将 `wrangler.example.toml` 复制为本地 `wrangler.toml` 并配置 Pages 的 `VISITS_DB` 绑定。
+2. 应用 `migrations/0001_visit_counter.sql`，再用你自己网站的历史基线和起始日期初始化 `visit_counter`。本仓库刻意不提供本站生产基线。
+3. 将 `cloudflare/visit-sync/wrangler.example.toml` 复制为同目录下的 `wrangler.toml`，替换 Worker 名称、Zone ID、域名、同步起始日期、D1 ID 和 Analytics Engine 数据集名称。
+4. 创建仅限目标站点的 Cloudflare API Token，至少授予 `Account Analytics: Read` 和 `Zone Analytics: Read`，然后执行 `wrangler secret put CLOUDFLARE_ANALYTICS_TOKEN` 写入加密 Secret；不要把 Token 写进配置文件。
+5. 在 `cloudflare/visit-sync` 目录执行 `wrangler deploy`。示例 Cron `15 18 * * *` 使用 UTC，即北京时间次日 02:15。
+
+判断同步是否真正成功时，应查询 D1 的 `daily_visits`、`visit_sync_runs` 和 `visit_counter`，不能只依据 Cron 列表中的表面状态。
 
 ## 安全
 
