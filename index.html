@@ -2060,7 +2060,7 @@
                 "本说明文档为学生自制，必然会有谬误之处。",
                 "标识为“重点网站”的，代表它们与学校日常学习、办事、资源获取等流程关系密切。2026 年上半年网络攻防演练期间，这些重点网站会出现“无法打开”、“内部跳转受限”、“访问不稳定”与“反复二次验证”的情况。"
           ],
-          lastUpdated: "2026-09-08",
+          lastUpdated: "2026-09-11",
           copyright: {
                 startYear: 2026,
                 holder: "Jinze"
@@ -2214,8 +2214,20 @@
           {
                 title: "钱班入学指南",
                 status: "开放中",
-                description: "学生自整理的钱学森学(书)院的相关文件（含入学选拔），供新生参考",
+                description: "学生自整理的钱学森学(书)院的相关文件（含入学选拔），供新生参考。",
                 url: "https://qian-guide.com/"
+          },
+          {
+                title: "岱宗盒子",
+                status: "持续迭代中",
+                description: "",
+                url: "https://github.com/yeliqin666/xjtu-toolbox-android"
+          },
+          {
+                title: "XJTUToolBox",
+                status: "持续迭代中",
+                description: "",
+                url: "https://github.com/yan-xiaoo/XJTUToolBox"
           }
     ];
 
@@ -2334,16 +2346,21 @@
           },
           {
                 c: "course",
-                n: "本科考勤",
-                d: "顾名思义，但日常很难打开",
-                short: "bkkq",
+                n: "教务办事大厅新版",
+                d: "考试查询、成绩查询、课表查询、空闲教室查询、课程查询、教师查询、成绩单申领、学生评教、缓补考申请。旧系统中部分功能尚未兼容到新系统。",
+                short: "jwxt",
                 popular: true,
-                campus: true,
                 auth: true,
-                important: true,
-                webvpnLinks: [
-                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421f2fc4a8d692862446b468ca88d1b203b/"
-                ]
+                important: true
+          },
+          {
+                c: "course",
+                n: "教务办事大厅旧版",
+                d: "旧版教务办事大厅，特点是各功能页面分立，便于操作。旧系统中部分功能尚未兼容到新系统。",
+                short: "ehall",
+                popular: true,
+                auth: true,
+                important: true
           },
           {
                 c: "course",
@@ -2369,21 +2386,16 @@
           },
           {
                 c: "study",
-                n: "教务办事大厅新版",
-                d: "考试查询、成绩查询、教师查询、课表查询、课程查询、成绩单申领、学生评教、缓补考申请。",
-                short: "jwxt",
+                n: "考勤管理平台",
+                d: "顾名思义，日常上课考勤管理平台，于2026新学年投入使用。目前使用webvpn访问时会有bug。预测在正式投入使用后会十分难以进入。",
+                short: "kq",
                 popular: true,
+                campus: true,
                 auth: true,
-                important: true
-          },
-          {
-                c: "study",
-                n: "教务办事大厅旧版",
-                d: "旧版教务办事大厅，特点是各功能页面分立，便于操作",
-                short: "ehall",
-                popular: true,
-                auth: true,
-                important: true
+                important: true,
+                webvpnLinks: [
+                      "https://webvpn.xjtu.edu.cn/https/77726476706e69737468656265737421fbe60f842d247d1e7b0c9ce29b5b/"
+                ]
           },
           {
                 c: "study",
@@ -2875,6 +2887,17 @@
                             url: "http://one.xjtu.edu.cn"
                       }
                 ],
+                retired: true
+          },
+          {
+                c: "retired",
+                n: "本科考勤",
+                d: "顾名思义，但日常很难打开。\n新考勤系统已于2026新学年开始使用，但是该老系统仍可打开",
+                short: "bkkq",
+                popular: true,
+                campus: true,
+                auth: true,
+                important: true,
                 retired: true
           }
     ];
